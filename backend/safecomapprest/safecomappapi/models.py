@@ -22,3 +22,18 @@ class Person (models.Model):
 
     def __str__(self):
         return self.name
+
+
+class recordVisit(models.Model):
+    """
+    fecha_ingreso date,
+    fecha_salida date,
+    placa character varying(7) COLLATE pg_catalog."default",
+    cedula_visita character varying(12) COLLATE pg_catalog."default",
+    motivo character varying(500) COLLATE pg_catalog."default",
+    """
+    incoming_date = models.DateTimeField(auto_now_add=True)
+    outgoing = models.DateTimeField(null=True, blank=True)
+    plate = models.CharField(max_length=7)
+
+    pass
