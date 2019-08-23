@@ -24,7 +24,7 @@ class Person (models.Model):
         return self.name
 
 
-class recordVisit(models.Model):
+class RecordVisit(models.Model):
     """
     fecha_ingreso date,
     fecha_salida date,
@@ -35,5 +35,15 @@ class recordVisit(models.Model):
     incoming_date = models.DateTimeField(auto_now_add=True)
     outgoing = models.DateTimeField(null=True, blank=True)
     plate = models.CharField(max_length=7)
+    visit_identification = models.CharField(max_length=12)
+    reason = models.CharField(max_length=500)
 
-    pass
+class Blacklist(models.Model):
+    """
+    placa character varying(7) COLLATE pg_catalog."default",
+    cedula character varying(12) COLLATE pg_catalog."default",
+    """
+    visit_identification = models.CharField(max_length=12)
+    plate = models.CharField(max_length=7)
+    reason = models.CharField(max_length=500)
+
