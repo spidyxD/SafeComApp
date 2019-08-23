@@ -19,5 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('person/', include('safecomappapi.urls')),
+    path('vehicle/', include('safecomappapi.urls')),
+    path('recordVisit/', include('safecomappapi.urls')),
+    path('blackList/', include('safecomappapi.urls')),
 
 ]
