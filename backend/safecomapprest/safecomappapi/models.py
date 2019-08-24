@@ -38,6 +38,7 @@ class RecordVisit(models.Model):
     visit_identification = models.CharField(max_length=12)
     reason = models.CharField(max_length=500)
 
+
 class Blacklist(models.Model):
     """
     placa character varying(7) COLLATE pg_catalog."default",
@@ -46,4 +47,3 @@ class Blacklist(models.Model):
     visit_identification = models.CharField(max_length=12)
     plate = models.CharField(max_length=7)
     reason = models.CharField(max_length=500)
-

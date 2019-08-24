@@ -39,10 +39,28 @@ def vehicles_all(request):
 ######################################################################################
 ## VISIT
 
+@csrf_exempt
+def recordVisit_all(request):
+    """
+    List all RecordVisit
+    """
+    if request.method == 'GET':
+        objs = RecordVisit.objects.all()
+        serializer = VehicleSerializer(objs, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
 ######################################################################################
 ## BLACK LIST
 
+    @csrf_exempt
+    def blackList_all(request):
+        """
+        List all blackList
+        """
+        if request.method == 'GET':
+            objs = Blacklist.objects.all()
+            serializer = VehicleSerializer(objs, many=True)
+            return JsonResponse(serializer.data, safe=False)
 
 ######################################################################################
 ## OTHER CLASSES

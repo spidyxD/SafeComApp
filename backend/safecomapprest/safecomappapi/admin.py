@@ -4,8 +4,12 @@ from django.contrib import admin
 
 from .models import (
     Vehicle,
-    Person
+    Person,
+    RecordVisit,
+    Blacklist,
 )
 
 admin.site.register(Vehicle)
 admin.site.register(Person)
+admin.site.register(RecordVisit)
+admin.site.register(Blacklist)
