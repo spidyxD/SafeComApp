@@ -14,7 +14,7 @@ class Vehicle(models.Model):
 
 
 class Person (models.Model):
-    identification = models.CharField(max_length=12)
+    identification = models.CharField(max_length=12, primary_key=True)
     name = models.CharField(max_length=20)
     first_lastname = models.CharField(max_length=30)
     second_lastname = models.CharField(max_length=30)

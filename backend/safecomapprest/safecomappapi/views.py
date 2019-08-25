@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
+from django.shortcuts import get_object_or_404
 from .models import Person, Vehicle, RecordVisit, Blacklist
 from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSerializer, BlacklistSerializer
 
@@ -10,9 +11,26 @@ from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSeriali
 ######################################################################################
 ## PERSONS
 
-class Persons_all_objs(generics.ListAPIView):
+class PersonList(generics.ListAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
+
+class PersonCreate(generics.ListCreateAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
+
+class PersonUpdate(generics.RetrieveUpdateAPIView):
+    serializer_class = PersonSerializer
+    lookup_field = "identification"
+
+    def get_object(self):
+        identification = self.kwargs["pk"]
+        return get_object_or_404(Person, identification=identification)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 ######################################################################################
 ## VEHICLE

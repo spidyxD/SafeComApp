@@ -5,7 +5,8 @@ from . import views
 urlpatterns = [
     #####################################
     # PERSON
-    path('persons/', views.Persons_all_objs.as_view()),
+    path('persons/', views.PersonList.as_view()),
+    path('persons/<str:pk>/update', views.PersonUpdate.as_view()),
     #####################################
     # VEHICLE
     path('vehicles/', views.Vehicles_all.as_view()),
