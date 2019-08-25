@@ -1,6 +1,6 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+from rest_framework import generics
 from .models import Person, Vehicle, RecordVisit, Blacklist
 from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSerializer, BlacklistSerializer
 
@@ -10,57 +10,34 @@ from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSeriali
 ######################################################################################
 ## PERSONS
 
-
-@csrf_exempt
-def persons_all(request):
-    """
-    List all persons
-    """
-    if request.method == 'GET':
-        objs = Person.objects.all()
-        serializer = PersonSerializer(objs, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
+class Persons_all_objs(generics.ListAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
 
 ######################################################################################
 ## VEHICLE
 
 
-@csrf_exempt
-def vehicles_all(request):
-    """
-    List all vehicles
-    """
-    if request.method == 'GET':
-        objs = Vehicle.objects.all()
-        serializer = VehicleSerializer(objs, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class Vehicles_all(generics.ListAPIView):
+    queryset = Vehicle.objects.all()
+    serializer_class = VehicleSerializer
 
 ######################################################################################
 ## VISIT
 
-@csrf_exempt
-def recordVisit_all(request):
-    """
-    List all RecordVisit
-    """
-    if request.method == 'GET':
-        objs = RecordVisit.objects.all()
-        serializer = RecordVisitSerializer(objs, many=True)
-        return JsonResponse(serializer.data, safe=False)
+
+class RecordVisit_all(generics.ListAPIView):
+    queryset = RecordVisit.objects.all()
+    serializer_class = RecordVisitSerializer
+
 
 ######################################################################################
 ## BLACK LIST
 
-@csrf_exempt
-def blackList_all(request):
-    """
-    List all blackList
-    """
-    if request.method == 'GET':
-        objs = Blacklist.objects.all()
-        serializer = BlacklistSerializer(objs, many=True)
-        return JsonResponse(serializer.data, safe=False)
+
+class BlackList_all(generics.ListAPIView):
+    queryset = Blacklist.objects.all()
+    serializer_class = BlacklistSerializer
 
 ######################################################################################
 ## OTHER CLASSES

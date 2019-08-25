@@ -20,7 +20,7 @@ class RecordVisitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecordVisit
-        fields = ['incoming_date', 'outgoing', 'plate', 'visit_identification', 'reason']
+        fields = ['incoming_date', 'outgoing_date', 'plate', 'visit_identification', 'reason']
 
 
 class BlacklistSerializer(serializers.ModelSerializer):

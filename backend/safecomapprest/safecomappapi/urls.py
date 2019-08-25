@@ -1,17 +1,18 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     #####################################
     # PERSON
-    path('persons/', views.persons_all),
+    path('persons/', views.Persons_all_objs.as_view()),
     #####################################
     # VEHICLE
-    path('vehicles/', views.vehicles_all),
+    path('vehicles/', views.Vehicles_all.as_view()),
     #####################################
     # RECORDVISIT
-    path('recordVisit/', views.recordVisit_all),
+    path('recordVisit/', views.RecordVisit_all.as_view()),
     #####################################
     # BLACKLIST
-    path('blackList/', views.blackList_all),
+    path('blackList/', views.BlackList_all.as_view()),
 ]
