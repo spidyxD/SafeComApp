@@ -46,21 +46,21 @@ def recordVisit_all(request):
     """
     if request.method == 'GET':
         objs = RecordVisit.objects.all()
-        serializer = VehicleSerializer(objs, many=True)
+        serializer = RecordVisitSerializer(objs, many=True)
         return JsonResponse(serializer.data, safe=False)
 
 ######################################################################################
 ## BLACK LIST
 
-    @csrf_exempt
-    def blackList_all(request):
-        """
-        List all blackList
-        """
-        if request.method == 'GET':
-            objs = Blacklist.objects.all()
-            serializer = VehicleSerializer(objs, many=True)
-            return JsonResponse(serializer.data, safe=False)
+@csrf_exempt
+def blackList_all(request):
+    """
+    List all blackList
+    """
+    if request.method == 'GET':
+        objs = Blacklist.objects.all()
+        serializer = BlacklistSerializer(objs, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
 ######################################################################################
 ## OTHER CLASSES

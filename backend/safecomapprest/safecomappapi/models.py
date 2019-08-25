@@ -33,10 +33,13 @@ class RecordVisit(models.Model):
     motivo character varying(500) COLLATE pg_catalog."default",
     """
     incoming_date = models.DateTimeField(auto_now_add=True)
-    outgoing = models.DateTimeField(null=True, blank=True)
+    outgoing_date = models.DateTimeField(null=True, blank=True)
     plate = models.CharField(max_length=7)
     visit_identification = models.CharField(max_length=12)
     reason = models.CharField(max_length=500)
+
+    def __str__(self):
+        return f"{self.incoming_date} {self.outgoing_date} {self.plate} {self.reason}"
 
 
 class Blacklist(models.Model):
@@ -47,3 +50,6 @@ class Blacklist(models.Model):
     visit_identification = models.CharField(max_length=12)
     plate = models.CharField(max_length=7)
     reason = models.CharField(max_length=500)
+
+    def __str__(self):
+        return f"{self.visit_identification} {self.plate} {self.reason}"
