@@ -32,6 +32,19 @@ class PersonUpdate(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+
+class PersonDestroy(generics.DestroyAPIView):
+    serializer_class = PersonSerializer
+
+    def get_queryset(self):
+        queryset = Person.objects.filter(identification=self.kwargs['pk'])
+        return queryset
+
+    def preform_destroy(self, instance):
+        serializer = PersonSerializer(data=self.get_queryset())
+        serializer.is_valid(True)
+        return instance.delete()
+
 ######################################################################################
 ## VEHICLE
 
