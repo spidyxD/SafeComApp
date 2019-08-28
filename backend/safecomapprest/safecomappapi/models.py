@@ -21,7 +21,7 @@ class Person (models.Model):
     role = models.BooleanField()
 
     def __str__(self):
-        return self.name
+        return f"{self.identification} {self.name} {self.first_lastname}"
 
 
 class RecordVisit(models.Model):
@@ -35,7 +35,7 @@ class RecordVisit(models.Model):
     incoming_date = models.DateTimeField(auto_now_add=True)
     outgoing_date = models.DateTimeField(null=True, blank=True)
     plate = models.CharField(max_length=7)
-    visit_identification = models.CharField(max_length=12)
+    visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
     reason = models.CharField(max_length=500)
 
     def __str__(self):

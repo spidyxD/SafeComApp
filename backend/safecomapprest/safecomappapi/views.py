@@ -49,19 +49,52 @@ class PersonDestroy(generics.DestroyAPIView):
 ## VEHICLE
 
 
-class Vehicles_all(generics.ListAPIView):
+class VehiclesList(generics.ListAPIView):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializer
+
+
+class VehicleCreate(generics.ListCreateAPIView):
+    queryset = Vehicle.objects.all()
+    serializer_class = VehicleSerializer
+
+
+class VehicleUpdate(generics.RetrieveUpdateAPIView):
+    serializer_class = PersonSerializer
+    lookup_field = "plate"
+
+    def get_object(self):
+        plate = self.kwargs["pk"]
+        return get_object_or_404(Vehicle, plate=plate)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+class VehicleDestroy(generics.DestroyAPIView):
+    serializer_class = VehicleSerializer
+
+    def get_queryset(self):
+        queryset = Vehicle.objects.filter(identification=self.kwargs['pk'])
+        return queryset
+
+    def preform_destroy(self, instance):
+        serializer = VehicleSerializer(data=self.get_queryset())
+        serializer.is_valid(True)
+        return instance.delete()
 
 ######################################################################################
 ## VISIT
 
 
-class RecordVisit_all(generics.ListAPIView):
+class RecordVisitList(generics.ListAPIView):
     queryset = RecordVisit.objects.all()
     serializer_class = RecordVisitSerializer
 
 
+class RecordVisitCreate(generics.ListCreateAPIView):
+    queryset = RecordVisit.objects.all()
+    serializer_class = VehicleSerializer
 ######################################################################################
 ## BLACK LIST
 

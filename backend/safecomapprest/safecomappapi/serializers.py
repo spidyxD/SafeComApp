@@ -2,11 +2,6 @@ from rest_framework import serializers
 from .models import Person, Vehicle, RecordVisit, Blacklist
 
 
-class PersonSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Person
-        fields = ['identification', 'name', 'first_lastname', 'second_lastname', 'role']
 
 
 class VehicleSerializer(serializers.ModelSerializer):
@@ -21,6 +16,13 @@ class RecordVisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecordVisit
         fields = ['incoming_date', 'outgoing_date', 'plate', 'visit_identification', 'reason']
+
+
+class PersonSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Person
+        fields = ['identification', 'name', 'first_lastname', 'second_lastname', 'role']
 
 
 class BlacklistSerializer(serializers.ModelSerializer):

@@ -6,15 +6,16 @@ urlpatterns = [
     #####################################
     # PERSON
     path('persons/', views.PersonList.as_view()),
-    path('persons/create', views.PersonCreate.as_view()),
-    path('persons/<str:pk>/update', views.PersonUpdate.as_view()),
-    path('persons/<str:pk>/delete', views.PersonDestroy.as_view()),
+    path('person/create', views.PersonCreate.as_view()),
+    path('person/<str:pk>/update', views.PersonUpdate.as_view()),
+    path('person/<str:pk>/delete', views.PersonDestroy.as_view()),
     #####################################
     # VEHICLE
-    path('vehicles/', views.Vehicles_all.as_view()),
+    path('vehicles/', views.VehiclesList.as_view()),
     #####################################
     # RECORDVISIT
-    path('recordVisit/', views.RecordVisit_all.as_view()),
+    path('recordVisits/', views.RecordVisitList.as_view()),
+    path('recordVisit/create', views.RecordVisitList.as_view()),
     #####################################
     # BLACKLIST
     path('blackList/', views.BlackList_all.as_view()),
