@@ -7,6 +7,18 @@ from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSeriali
 
 
 # Create your views here.
+"""
+    TODO
+
+    QUERIES: {
+        getAllVisitByPerson()
+        getAllVisitByPlate()
+        getAllVisitByDate()        
+        getVehicle()
+        getBlacklist()
+        getPerson()        
+    }
+"""
 
 ######################################################################################
 ## PERSONS
@@ -84,7 +96,9 @@ class VehicleDestroy(generics.DestroyAPIView):
         return instance.delete()
 
 ######################################################################################
-## VISIT
+## RECORD VISIT
+
+##  Here, just GET and POST verbs, we can not DELETE or UPDATE
 
 
 class RecordVisitList(generics.ListAPIView):
@@ -94,14 +108,34 @@ class RecordVisitList(generics.ListAPIView):
 
 class RecordVisitCreate(generics.ListCreateAPIView):
     queryset = RecordVisit.objects.all()
-    serializer_class = VehicleSerializer
+    serializer_class = RecordVisitSerializer
+
 ######################################################################################
 ## BLACK LIST
 
 
-class BlackList_all(generics.ListAPIView):
+class BlackListList(generics.ListAPIView):
     queryset = Blacklist.objects.all()
     serializer_class = BlacklistSerializer
 
+
+class BlackListCreate(generics.ListCreateAPIView):
+    queryset = Blacklist.objects.all()
+    serializer_class = BlacklistSerializer
+
+"""
+class BlackListUpdate(generics.RetrieveUpdateAPIView):
+    serializer_class = BlacklistSerializer
+    lookup_field = "plate"
+
+    def get_object(self):
+        plate = self.kwargs["pk"]
+        return get_object_or_404(Vehicle, plate=plate)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+        
+"""
 ######################################################################################
 ## OTHER CLASSES
+

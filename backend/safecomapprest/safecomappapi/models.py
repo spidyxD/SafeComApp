@@ -33,8 +33,8 @@ class RecordVisit(models.Model):
     motivo character varying(500) COLLATE pg_catalog."default",
     """
     incoming_date = models.DateTimeField(auto_now_add=True)
-    outgoing_date = models.DateTimeField(null=True, blank=True)
-    plate = models.CharField(max_length=7)
+    outgoing_date = models.DateTimeField(null=True, blank=True) # format input_formats
+    plate = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle')
     visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
     reason = models.CharField(max_length=500)
 
@@ -47,8 +47,8 @@ class Blacklist(models.Model):
     placa character varying(7) COLLATE pg_catalog."default",
     cedula character varying(12) COLLATE pg_catalog."default",
     """
-    visit_identification = models.CharField(max_length=12)
-    plate = models.CharField(max_length=7)
+    visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
+    plate = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle')
     reason = models.CharField(max_length=500)
 
     def __str__(self):

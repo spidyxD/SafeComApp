@@ -12,11 +12,15 @@ urlpatterns = [
     #####################################
     # VEHICLE
     path('vehicles/', views.VehiclesList.as_view()),
+    path('vehicle/create', views.VehicleCreate.as_view()),
+    path('vehicle/<str:pk>/update', views.VehicleUpdate.as_view()),
+    path('vehicle/<str:pk>/delete', views.VehicleDestroy.as_view()),
     #####################################
     # RECORDVISIT
     path('recordVisits/', views.RecordVisitList.as_view()),
-    path('recordVisit/create', views.RecordVisitList.as_view()),
+    path('recordVisit/create', views.RecordVisitCreate.as_view()),
     #####################################
     # BLACKLIST
-    path('blackList/', views.BlackList_all.as_view()),
+    path('blackList/', views.BlackListList.as_view()),
+    path('blackList/create', views.BlackListCreate.as_view()),
 ]
