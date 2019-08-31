@@ -57,6 +57,15 @@ class PersonDestroy(generics.DestroyAPIView):
         serializer.is_valid(True)
         return instance.delete()
 
+
+class PersonVisits(generics.RetrieveAPIView):
+    serializer_class = PersonSerializer
+    lookup_field = "identification"
+
+    def get_object(self):
+        identification = self.kwargs["pk"]
+        return get_object_or_404(Person, identification=identification)
+
 ######################################################################################
 ## VEHICLE
 
@@ -123,19 +132,7 @@ class BlackListCreate(generics.ListCreateAPIView):
     queryset = Blacklist.objects.all()
     serializer_class = BlacklistSerializer
 
-"""
-class BlackListUpdate(generics.RetrieveUpdateAPIView):
-    serializer_class = BlacklistSerializer
-    lookup_field = "plate"
 
-    def get_object(self):
-        plate = self.kwargs["pk"]
-        return get_object_or_404(Vehicle, plate=plate)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-        
-"""
 ######################################################################################
 ## OTHER CLASSES
 

@@ -47,8 +47,8 @@ class Blacklist(models.Model):
     placa character varying(7) COLLATE pg_catalog."default",
     cedula character varying(12) COLLATE pg_catalog."default",
     """
-    visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
-    plate = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle')
+    visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor_black') # one to many relationship
+    plate = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle_black')
     reason = models.CharField(max_length=500)
 
     def __str__(self):
