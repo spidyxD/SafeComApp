@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from .models import Person, Vehicle, RecordVisit, Blacklist
 from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSerializer, BlacklistSerializer
 
@@ -59,12 +59,15 @@ class PersonDestroy(generics.DestroyAPIView):
 
 
 class PersonVisits(generics.RetrieveAPIView):
-    serializer_class = PersonSerializer
-    lookup_field = "identification"
+    """getAllVisitByPerson"""
+    serializer_class = RecordVisitSerializer
+    lookup_field = "visit_identification"
 
     def get_object(self):
         identification = self.kwargs["pk"]
-        return get_object_or_404(Person, identification=identification)
+        #queryset = Book.objects.filter(title__startswith='M')
+        query = RecordVisit.objects.filter(visit_identification=identification)
+        return get_list_or_404(query)
 
 ######################################################################################
 ## VEHICLE
