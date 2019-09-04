@@ -15,7 +15,7 @@ class RecordVisitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecordVisit
-        fields = ['incoming_date', 'outgoing_date', 'plate', 'visit_identification', 'reason']
+        fields = ['visit_id','incoming_date', 'outgoing_date', 'visit_identification', 'reason', 'plate']
 
 
 class PersonSerializer(serializers.ModelSerializer):
