@@ -19,6 +19,7 @@ class PersonSerializer(serializers.ModelSerializer):
 class RecordVisitSerializer(serializers.ModelSerializer):
 
     visit_identification = PersonSerializer(read_only=True)
+    plate = VehicleSerializer(read_only=True)
 
     class Meta:
         model = RecordVisit

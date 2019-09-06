@@ -35,7 +35,7 @@ class RecordVisit(models.Model):
     visit_id = models.AutoField(primary_key=True)
     incoming_date = models.DateTimeField(auto_now_add=True)
     outgoing_date = models.DateTimeField(null=True, blank=True) # format input_formats
-    plate = models.CharField(max_length=7) #models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle')
+    plate = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle')
     visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
     reason = models.CharField(max_length=500)
 
