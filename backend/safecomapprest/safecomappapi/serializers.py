@@ -6,7 +6,7 @@ class VehicleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vehicle
-        fields = ['plate', 'model', 'brand', 'color']
+        fields = ['plate', 'model', 'brand', 'color', 'owner']
 
 
 class PersonSerializer(serializers.ModelSerializer):

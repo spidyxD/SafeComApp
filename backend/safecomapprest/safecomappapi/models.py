@@ -3,16 +3,6 @@ from django.db import models
 
 # Create your models here.
 
-class Vehicle(models.Model):
-    plate = models.CharField(max_length=7)
-    model = models.CharField(max_length=20)
-    brand = models.CharField(max_length=10)
-    color = models.CharField(max_length=10)
-
-    def __str__(self):
-        return self.plate
-
-
 class Person (models.Model):
     identification = models.CharField(max_length=12, primary_key=True)
     name = models.CharField(max_length=20)
@@ -22,6 +12,17 @@ class Person (models.Model):
 
     def __str__(self):
         return f"{self.identification} {self.name} {self.first_lastname}"
+
+
+class Vehicle(models.Model):
+    plate = models.CharField(max_length=7)
+    model = models.CharField(max_length=20)
+    brand = models.CharField(max_length=10)
+    color = models.CharField(max_length=10)
+    owner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='driver')
+
+    def __str__(self):
+        return self.plate
 
 
 class RecordVisit(models.Model):
