@@ -18,6 +18,7 @@ urlpatterns = [
     path('vehicle/<str:pk>/', views.VehicleUpdate.as_view()),
     path('vehicle/<str:pk>/update', views.VehicleUpdate.as_view()),
     path('vehicle/<str:pk>/delete', views.VehicleDestroy.as_view()),
+    path('vehicle/<str:pk>/visits', views.VehicleVisits.as_view()),
     #####################################
     # RECORDVISIT
     path('recordVisits/', views.RecordVisitList.as_view()),

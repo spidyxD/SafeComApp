@@ -11,12 +11,12 @@ from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSeriali
     TODO
 
     QUERIES: {
-        getAllVisitByPerson()
-        getAllVisitByPlate()
-        getAllVisitByDate()        
-        getVehicle()
-        getBlacklist()
-        getPerson()        
+        -getAllVisitByPerson()-
+        -getAllVisitByPlate()-
+        getAllVisitByDate()  ** pending      
+        -getVehicle()-
+        -getBlacklist()-
+        -getPerson()-       
     }
 """
 
@@ -90,7 +90,7 @@ class VehicleCreate(generics.ListCreateAPIView):
 
 
 class VehicleUpdate(generics.RetrieveUpdateAPIView):
-    serializer_class = PersonSerializer
+    serializer_class = VehicleSerializer
     lookup_field = "plate"
 
     def get_object(self):
@@ -113,6 +113,23 @@ class VehicleDestroy(generics.DestroyAPIView):
         serializer.is_valid(True)
         return instance.delete()
 
+
+class VehicleVisits(generics.ListAPIView):
+    """getAllVisitByPlate"""
+    serializer_class = RecordVisitSerializer
+    #lookup_field = "visit_identification"
+
+    def get_queryset(self):
+        """The queryset that should be used for returning objects from this view"""
+        plate = self.kwargs["pk"]
+        query = RecordVisit.objects.select_related('plate').filter(plate=plate)
+        #query = RecordVisit.objects.filter(visit_identification=identification)
+        return query
+
+
+    def get_object(self):
+        query = self.get_queryset()
+        return get_list_or_404(query)
 ######################################################################################
 ## RECORD VISIT
 
