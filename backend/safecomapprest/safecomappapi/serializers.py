@@ -2,18 +2,20 @@ from rest_framework import serializers
 from .models import Person, Vehicle, RecordVisit, Blacklist
 
 
-class VehicleSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Vehicle
-        fields = ['plate', 'model', 'brand', 'color', 'owner']
-
-
 class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
         fields = ['identification', 'name', 'first_lastname', 'second_lastname', 'role']
+
+
+class VehicleSerializer(serializers.ModelSerializer):
+
+    owner = PersonSerializer(read_only=True)
+
+    class Meta:
+        model = Vehicle
+        fields = ['plate', 'model', 'brand', 'color', 'owner']
 
 
 class RecordVisitSerializer(serializers.ModelSerializer):
