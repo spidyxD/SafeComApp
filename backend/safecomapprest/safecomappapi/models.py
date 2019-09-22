@@ -37,12 +37,12 @@ class RecordVisit(models.Model):
     incoming_date = models.DateTimeField(auto_now_add=True)
     outgoing_date = models.DateTimeField(null=True, blank=True) # format input_formats
     plate = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle')
-    visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
+    # visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor') # one to many relationship
     reason = models.CharField(max_length=500)
 
     def __str__(self):
         incoming_date = self.incoming_date.strftime("%d-%m-%Y %H:%M:%S")
-        outgoing_date = self.incoming_date.strftime("%d-%m-%Y %H:%M:%S")
+        outgoing_date = self.outgoing_date.strftime("%d-%m-%Y %H:%M:%S") if self.outgoing_date is not None else "Sin salida"
         return f"{incoming_date} | {outgoing_date} | {self.plate} | {self.reason}"
 
 

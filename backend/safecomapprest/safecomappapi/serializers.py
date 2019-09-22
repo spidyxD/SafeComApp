@@ -20,12 +20,12 @@ class VehicleSerializer(serializers.ModelSerializer):
 
 class RecordVisitSerializer(serializers.ModelSerializer):
 
-    visit_identification = PersonSerializer(read_only=True)
+    #visit_identification = PersonSerializer(read_only=True)
     plate = VehicleSerializer(read_only=True)
 
     class Meta:
         model = RecordVisit
-        fields = ['visit_id', 'incoming_date', 'outgoing_date', 'visit_identification', 'reason', 'plate']
+        fields = ['visit_id', 'incoming_date', 'outgoing_date', 'reason', 'plate'] # , 'visit_identification' ]
 
 
 class BlacklistSerializer(serializers.ModelSerializer):

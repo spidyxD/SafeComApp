@@ -6,6 +6,7 @@ urlpatterns = [
     #####################################
     # PERSON
     path('persons/', views.PersonList.as_view()),
+    path('persons/noExit', views.PersonNoExitList.as_view()),
     path('person/create', views.PersonCreate.as_view()),
     path('person/<str:pk>/', views.PersonUpdate.as_view()),
     path('person/<str:pk>/update', views.PersonUpdate.as_view()),
