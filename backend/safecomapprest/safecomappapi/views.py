@@ -30,16 +30,13 @@ class PersonList(generics.ListAPIView):
 
 
 class PersonNoExitList(generics.ListAPIView):
-    """getAllVisitByPerson"""
+
     serializer_class = RecordVisitSerializer
-    #lookup_field = "visit_identification"
 
     def get_queryset(self):
         """The queryset that should be used for returning objects from this view"""
-        identification = self.kwargs["pk"]
         query = RecordVisit.objects.filter(outgoing_date__isnull=True)
         return query
-
 
     def get_object(self):
         query = self.get_queryset()
