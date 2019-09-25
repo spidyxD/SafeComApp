@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import api from '../API'
+import '../css/home.css';
 
-import '../css/Home.css';
 
+ class Home extends React.Component {
+  state = {
+    loading: true,
+    error: null,
+    info:null
+  };
+  async componentDidMount(){
+      this.fetchData()
+  }
+  fetchData = async e => {
+      this.setState({loading:true,error:null})
+      try{
+          const data = await api.actions.listPersons();
+          this.setState({info:data});
+          console.log(data);
+      }catch(error){
+        this.setState({loading:false, error:error})
+      }
+  }
+  
 
-export default class Home extends Component {
   render() {
     return (
       <div className="Home">
         <div className="container">
             <h1>SoftComp</h1>
+            
         </div>
       </div>
     );
   }
 }
+export default Home;
