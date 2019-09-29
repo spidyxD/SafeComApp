@@ -3,4 +3,57 @@
 
   {% block content %}
 <h1>Registro de Personas</h1>
-  {% endblock %}
+
+<form action="{% url 'doregistroPersona' %}" method="POST">
+
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputCedula">Cedula</label>
+            <input class="form-control" id="inputCedula" name="inputCedula" type="text" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputName">Nombre</label>
+            <input class="form-control" id="inputName" name="inputName" type="text" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputPrimerApe">Primer Apellido</label>
+            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputSegundoApe">Segundo Apellido</label>
+            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" required>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary" type="submit">Registrar</button>
+
+</form>
+<br>
+
+{% block messages %}
+    {% if success %}
+
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+           {{error}}
+        </div>
+
+    {% endif %}
+
+{% endblock %} <!-- END MESSAGES BLOCK -->
+
+
+
+{% endblock %}
