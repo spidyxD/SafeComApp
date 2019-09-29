@@ -8,9 +8,9 @@ urlpatterns = [
     path('persons/', views.PersonList.as_view()),
     path('person/create', views.PersonCreate.as_view()),
     path('person/<str:pk>/', views.PersonUpdate.as_view()),
-    path('person/<str:pk>/update', views.PersonUpdate.as_view()),
-    path('person/<str:pk>/delete', views.PersonDestroy.as_view()),
-    path('person/<str:pk>/visits', views.PersonVisits.as_view()),
+    path('person/update/<str:pk>', views.PersonUpdate.as_view()),
+    path('person/delete/<str:pk>', views.PersonDestroy.as_view()),
+    path('person/visits/<str:pk>', views.PersonVisits.as_view()),
     #####################################
     # VEHICLE
     path('vehicles/', views.VehiclesList.as_view()),

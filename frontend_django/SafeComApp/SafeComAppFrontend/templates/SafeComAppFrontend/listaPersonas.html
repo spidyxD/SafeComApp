@@ -22,15 +22,34 @@
                 <td>{{person.second_lastname}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="#">Editar</a>
+                    <a class="btn" href="{% url 'editarPersona' %}?identification={{person.identification}}">Editar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="#">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarPersona' %}?identification={{person.identification}}">Eliminar</a>
                   </button>
                 </td>
             </tr>
         {% endfor %}
   </tbody>
 </table>
+
+{% block messages %}
+    {% if success %}
+
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+           {{error}}
+        </div>
+
+    {% endif %}
+
+{% endblock %} <!-- END MESSAGES BLOCK -->
 
   {% endblock %}
