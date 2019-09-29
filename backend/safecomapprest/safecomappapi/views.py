@@ -23,9 +23,25 @@ from .serializers import PersonSerializer, VehicleSerializer, RecordVisitSeriali
 ######################################################################################
 ## PERSONS
 
+
 class PersonList(generics.ListAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
+
+class PersonNoExitList(generics.ListAPIView):
+
+    serializer_class = RecordVisitSerializer
+
+    def get_queryset(self):
+        """The queryset that should be used for returning objects from this view"""
+        query = RecordVisit.objects.filter(outgoing_date__isnull=True)
+        return query
+
+    def get_object(self):
+        query = self.get_queryset()
+        return get_list_or_404(query)
+
 
 
 class PersonCreate(generics.ListCreateAPIView):
@@ -66,8 +82,9 @@ class PersonVisits(generics.ListAPIView):
     def get_queryset(self):
         """The queryset that should be used for returning objects from this view"""
         identification = self.kwargs["pk"]
-        query = RecordVisit.objects.select_related('visit_identification').filter(visit_identification=identification)
+        #query = RecordVisit.objects.select_related('visit_identification').filter(visit_identification=identification)
         #query = RecordVisit.objects.filter(visit_identification=identification)
+        query = RecordVisit.objects.filter(plate__owner__identification=identification)
         return query
 
 
@@ -126,10 +143,11 @@ class VehicleVisits(generics.ListAPIView):
         #query = RecordVisit.objects.filter(visit_identification=identification)
         return query
 
-
     def get_object(self):
         query = self.get_queryset()
         return get_list_or_404(query)
+
+
 ######################################################################################
 ## RECORD VISIT
 
