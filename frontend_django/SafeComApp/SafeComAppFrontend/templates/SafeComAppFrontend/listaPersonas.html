@@ -1,0 +1,36 @@
+{% extends "SafeComAppFrontend/index.html" %}
+
+
+  {% block content %}
+<h1>Lista de Personas</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Cédula</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Primer Apellido</th>
+      <th scope="col">Segundo Appellido</th>
+      <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for person in persons %}
+            <tr>
+                <td>{{person.identification}}</td>
+                <td>{{person.name}}</td>
+                <td>{{person.first_lastname}}</td>
+                <td>{{person.second_lastname}}</td>
+                <td>
+                  <button type="button" class="btn btn-secondary">
+                    <a class="btn" href="#">Editar</a>
+                  </button>
+                  <button type="button" class="btn btn-secondary">
+                  <a class="btn" href="#">Eliminar</a>
+                  </button>
+                </td>
+            </tr>
+        {% endfor %}
+  </tbody>
+</table>
+
+  {% endblock %}
