@@ -27,7 +27,7 @@ const api = {
     actions: {
       async listPersons() {
             try {
-                return callApi('https://swapi.co/api/people/1/');
+                return callApi('/api/persons/');
             } catch (error) {
                 throw new Error('500: Server error. '+ error);
             }              
