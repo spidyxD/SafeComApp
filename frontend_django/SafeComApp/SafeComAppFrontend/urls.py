@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
     ##########################################################
     # PERSONA URLS
@@ -33,7 +32,7 @@ urlpatterns = [
     path('borrarVisita/', views.borrar_visita, name="borrarVisita"),
     path('doborrarVisita/', views.do_borrar_visita, name="doborrarVisita"),
 
-##########################################################
+    ##########################################################
     # BLACKLIST URLS
     path('registrarBloqueo', views.nav_registrar_bloqueo, name="registroBloqueo"),
     path('doregistrarBloqueo', views.do_registrar_bloqueo, name="doregistroBloqueo"),
