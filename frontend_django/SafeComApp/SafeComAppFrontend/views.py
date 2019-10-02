@@ -63,6 +63,7 @@ def do_registrar_persona(request):
 
 def listar_persona(request):
     """LISTAR PERSONAS"""
+
     response = requests.get(constantsURLs.PERSON_LIST)
     persons = response.json()  # returns a list of dictionaries
 
@@ -179,11 +180,14 @@ def do_borrar_persona(request):
         return redirect(listar_persona)
 
 
-##########################################################
+#######################################################################################################################
 # VEHICLE VIEW
+
+
 def nav_registrar_vehiculo(request):
     """REGISTRAR VEHICULO"""
     context = {'title': 'Registro Vehiculo'}
+    # SE DEBE ENVIAR LA LISTA DE PERSONAS PARA QUE EL USUARIO ESCOJA LA PERSONA QUE VA EN EL CARRO
     return render(request, "SafeComAppFrontend/registrarVehiculo.html", context)
 
 
@@ -205,7 +209,7 @@ def do_registrar_vehiculo(request):
             "model": modelo,
             "brand": marca,
             "color": color,
-            "color": propietario
+            "owner": propietario
 
         }
 
@@ -243,11 +247,11 @@ def do_actualizar_vehiculo(request):
             "model": modelo,
             "brand": marca,
             "color": color,
-            "color": propietario
+            "owner": propietario
         }
 
         try:
-            urlput = '{}{}'.format(constantsURLs.VEHICLE_UPDATE_UPDATE, placa)
+            urlput = '{}{}'.format(constantsURLs.VEHICLE_UPDATE, placa)
             response = requests.put(urlput, data=toSubmitData)
             if response.ok:
                 context['success'] = "Vehiculo Actualizado con éxito"
@@ -266,7 +270,7 @@ def do_actualizar_vehiculo(request):
 
 def listar_vehiculo(request):
     """LISTAR VEHICULOS"""
-    response = requests.get(constantsURLs.VEHICLE_LIST_LIST)
+    response = requests.get(constantsURLs.VEHICLE_LIST)
     vehicles = response.json()  # returns a list of dictionaries
 
     context = {
@@ -274,16 +278,18 @@ def listar_vehiculo(request):
         'vehicles': vehicles,
     }
 
-    return render(request, "SafeComAppFrontend/listaPersonas.html", context)
+    return render(request, "SafeComAppFrontend/listaVehiculo.html", context)
 
 
 def editar_vehiculo(request):
+
     context = {}
     context['title'] = "Editar Vehiculo"
+
     if request.method == 'GET':
         plate = request.GET.get('placa')
         if not plate:
-            return redirect(listar_vehiculo())
+            return redirect(listar_vehiculo)
         else:
             # Get the object
             req = "{}{}".format(constantsURLs.VEHICLE_GET, plate)
@@ -296,55 +302,18 @@ def editar_vehiculo(request):
                 context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
                 return render(request, 'SafeComAppFrontend/editarVehiculo.html', context)
 
-    return redirect(listar_vehiculo())
-
-
-def do_actualizar_vehiculo(request):
-    context = {}
-
-    if request.method == 'POST':
-
-        placa = request.POST['inputPlate']
-        modelo = request.POST['inputModel']
-        marca = request.POST['inputBrand']
-        color = request.POST['inputColor']
-        propietario = request.POST['inputOwner']
-
-        # Crear diccionario
-
-        toSubmitData = {
-            "plate": placa,
-            "model": modelo,
-            "brand": marca,
-            "color": color,
-            "color": propietario
-        }
-
-        try:
-            urlput = '{}{}'.format(constantsURLs.VEHICLE_UPDATE, placa)
-            response = requests.put(urlput, data=toSubmitData)
-            if response.ok:
-                context['success'] = "Vehiculo Actualizado con éxito"
-                context['vehicle'] = toSubmitData
-                return render(request, 'SafeComAppFrontend/editarVehiculo.html', context)
-            else:
-                # Clean data
-                txt = response.text.replace("[", "").replace("]", "")
-                errors = "Vehiculo ya existe" if "already exists" in txt else ""
-                context['error'] = f"Algo ha salido mal: {errors}"
-        except Exception as e:
-            context['error'] = "Ha ocurrido un error"
-
-        return redirect(listar_vehiculo())
+    return redirect(listar_vehiculo)
 
 
 def borrar_vehiculo(request):
+
     context = {}
     context['title'] = "Borrar Vehiculo"
+
     if request.method == 'GET':
         plate = request.GET.get('plate')
         if not plate:
-            return redirect(listar_vehiculo())
+            return redirect(listar_vehiculo)
         else:
             # Get the object
             req = "{}{}".format(constantsURLs.VEHICLE_GET, plate)
@@ -357,7 +326,7 @@ def borrar_vehiculo(request):
                 context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
                 return render(request, 'SafeComAppFrontend/borrarVehiculo.html', context)
 
-    return redirect(listar_vehiculo())
+    return redirect(listar_vehiculo)
 
 
 def do_borrar_vehiculo(request):
@@ -381,197 +350,227 @@ def do_borrar_vehiculo(request):
         except Exception as e:
             context['error'] = "Ha ocurrido un error"
 
-        return redirect(listar_vehiculo())
-
-    ##########################################################
-    # VISIT VIEW
-    # VEHICLE VIEW
-    def nav_registrar_visita(request):
-        """REGISTRAR VISITA"""
-        context = {'title': 'Registro Visita'}
-        return render(request, "SafeComAppFrontend/registrarVisita.html", context)
-
-    def do_registrar_visita(request):
-        context = {}
-
-        if request.method == 'POST':
-
-            fecha_ingreso = request.POST['inputIncomingDate']
-            fecha_salida = request.POST['inputOutgoingDate']
-            placa = request.POST['inputPlate']
-            motivo = request.POST['inputReason']
+        return redirect(listar_vehiculo)
 
 
-            # Crear diccionario
+##########################################################
+# VISIT VIEW
 
-            toSubmitData = {
-                "incoming_date": fecha_ingreso,
-                "outgoing_date": fecha_salida,
-                "plate": placa,
-                "reason": motivo
 
-            }
+def nav_registrar_visita(request):
+    """REGISTRAR VISITA"""
+    context = {'title': 'Registro Visita'}
+    # SE DEBE ENVIAR LA LISTA DE VEHICULOS PARA QUE EL USUARIO ESCOJA EL VEHICULO QUE ESTA INGRESANDO
+    return render(request, "SafeComAppFrontend/registrarVisita.html", context)
 
-            try:
-                response = requests.post(constantsURLs.VISIT_CREATE, data=toSubmitData)
-                if response.ok:
-                    context['success'] = "Visita Registrada con éxito"
-                else:
-                    # Clean data
-                    txt = response.text.replace("[", "").replace("]", "")
-                    errors = "Visita ya registrada" if "already exists" in txt else ""
-                    context['error'] = f"Algo ha salido mal: {errors}"
-            except Exception as e:
-                context['error'] = "Ha ocurrido un error"
 
-        context['title'] = "Registro Visita"
-        return render(request, 'SafeComAppFrontend/registrarVisita.html', context)
+def do_registrar_visita(request):
+    context = {}
 
-    def do_actualizar_visita(request):
-        context = {}
+    if request.method == 'POST':
 
-        if request.method == 'POST':
+        fecha_ingreso = request.POST['inputIncomingDate']
+        fecha_salida = request.POST['inputOutgoingDate']
+        placa = request.POST['inputPlate']
+        motivo = request.POST['inputReason']
 
-            fecha_ingreso = request.POST['inputIncomingDate']
-            fecha_salida = request.POST['inputOutgoingDate']
-            placa = request.POST['inputPlate']
-            motivo = request.POST['inputReason']
+        # Crear diccionario
 
-            # Crear diccionario
+        toSubmitData = {
+            "incoming_date": fecha_ingreso,
+            "outgoing_date": fecha_salida,
+            "plate": placa,
+            "reason": motivo
 
-            toSubmitData = {
-                "incoming_date": fecha_ingreso,
-                "outgoing_date": fecha_salida,
-                "plate": placa,
-                "reason": motivo
-            }
-
-            try:
-                urlput = '{}{}'.format(constantsURLs.VISIT_UPDATE, placa)
-                response = requests.put(urlput, data=toSubmitData)
-                if response.ok:
-                    context['success'] = "Visita Actualizada con éxito"
-                    context['visit'] = toSubmitData
-                    return render(request, 'SafeComAppFrontend/editarVisita.html', context)
-                else:
-                    # Clean data
-                    txt = response.text.replace("[", "").replace("]", "")
-                    errors = "Visita ya existe" if "already exists" in txt else ""
-                    context['error'] = f"Algo ha salido mal: {errors}"
-            except Exception as e:
-                context['error'] = "Ha ocurrido un error"
-
-            return redirect(listar_visita)
-
-    def listar_visita(request):
-        """LISTAR VISITAS"""
-        response = requests.get(constantsURLs.VISIT_LIST)
-        visits = response.json()  # returns a list of dictionaries
-
-        context = {
-            'title': 'Visits',
-            'visits': visits,
         }
 
-        return render(request, "SafeComAppFrontend/listaVisitas.html", context)
-
-    def editar_visita(request):
-        context = {}
-        context['title'] = "Editar Visita"
-        if request.method == 'GET':
-            plate = request.GET.get('placa')
-            if not plate:
-                return redirect(listar_vehiculo())
+        try:
+            response = requests.post(constantsURLs.VISIT_CREATE, data=toSubmitData)
+            if response.ok:
+                context['success'] = "Visita Registrada con éxito"
             else:
-                # Get the object
-                req = "{}{}".format(constantsURLs.VISIT_GET, plate)
-                response = requests.get(req)
-                if response.ok:
-                    vehicle = json.loads(response.text)
-                    context['visit'] = vehicle
-                    return render(request, 'SafeComAppFrontend/editarVisita.html', context)
-                else:
-                    context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
-                    return render(request, 'SafeComAppFrontend/editarVisita.html', context)
+                # Clean data
+                txt = response.text.replace("[", "").replace("]", "")
+                errors = "Visita ya registrada" if "already exists" in txt else ""
+                context['error'] = f"Algo ha salido mal: {errors}"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
 
-        return redirect(listar_visita())
+    context['title'] = "Registro Visita"
+    return render(request, 'SafeComAppFrontend/registrarVisita.html', context)
 
-    def do_actualizar_visita(request):
-        context = {}
 
-        if request.method == 'POST':
+def do_actualizar_visita(request):
+    context = {}
 
-            fecha_ingreso = request.POST['inputIncomingDate']
-            fecha_salida = request.POST['inputOutgoingDate']
-            placa = request.POST['inputPlate']
-            motivo = request.POST['inputReason']
+    if request.method == 'POST':
 
-            # Crear diccionario
+        fecha_ingreso = request.POST['inputIncomingDate']
+        fecha_salida = request.POST['inputOutgoingDate']
+        placa = request.POST['inputPlate']
+        motivo = request.POST['inputReason']
 
-            toSubmitData = {
-                "incoming_date": fecha_ingreso,
-                "outgoing_date": fecha_salida,
-                "plate": placa,
-                "reason": motivo
+        # Crear diccionario
+
+        toSubmitData = {
+            "incoming_date": fecha_ingreso,
+            "outgoing_date": fecha_salida,
+            "plate": placa,
+            "reason": motivo
+        }
+
+        try:
+            urlput = '{}{}'.format(constantsURLs.VISIT_UPDATE, placa)
+            response = requests.put(urlput, data=toSubmitData)
+            if response.ok:
+                context['success'] = "Visita Actualizada con éxito"
+                context['visit'] = toSubmitData
+                return render(request, 'SafeComAppFrontend/editarVisita.html', context)
+            else:
+                # Clean data
+                txt = response.text.replace("[", "").replace("]", "")
+                errors = "Visita ya existe" if "already exists" in txt else ""
+                context['error'] = f"Algo ha salido mal: {errors}"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return redirect(listar_visita)
+
+
+def listar_visita(request):
+    """LISTAR VISITAS"""
+    response = requests.get(constantsURLs.VISIT_LIST)
+    visits = response.json()  # returns a list of dictionaries
+
+    context = {
+        'title': 'Visits',
+        'visits': visits,
+    }
+
+    return render(request, "SafeComAppFrontend/listaVisitas.html", context)
+
+
+def editar_visita(request):
+
+    context = {}
+    context['title'] = "Editar Visita"
+
+    if request.method == 'GET':
+        plate = request.GET.get('placa')
+        if not plate:
+            return redirect(listar_vehiculo)
+        else:
+            # Get the object
+            req = "{}{}".format(constantsURLs.VISIT_GET, plate)
+            response = requests.get(req)
+            if response.ok:
+                vehicle = json.loads(response.text)
+                context['visit'] = vehicle
+                return render(request, 'SafeComAppFrontend/editarVisita.html', context)
+            else:
+                context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
+                return render(request, 'SafeComAppFrontend/editarVisita.html', context)
+
+    return redirect(listar_visita)
+
+
+def borrar_visita(request):
+
+    context = {}
+    context['title'] = "Borrar Visita"
+
+    if request.method == 'GET':
+        plate = request.GET.get('plate')
+        if not plate:
+            return redirect(listar_visita)
+        else:
+            # Get the object
+            req = "{}{}".format(constantsURLs.VISIT_GET, plate)
+            response = requests.get(req)
+            if response.ok:
+                vehicle = json.loads(response.text)
+                context['visit'] = vehicle
+                return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
+            else:
+                context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
+                return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
+
+    return redirect(listar_visita)
+
+
+def do_borrar_visita(request):
+    context = {}
+
+    if request.method == 'POST':
+
+        placa = request.POST['inputPlate']
+
+        try:
+            urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, placa)
+            response = requests.delete(urldelete)
+            if response.ok:
+                context['success'] = "Visita borrada con éxito"
+                return render(request, 'SafeComAppFrontend/registrarVisita.html', context)
+            else:
+                # Clean data
+                txt = response.text.replace("[", "").replace("]", "")
+                errors = "Visita no ha sido registrada" if "already exists" in txt else ""
+                context['error'] = f"Algo ha salido mal: {errors}"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return redirect(listar_visita)
+
+
+#######################################################################################################################
+# Blacklist
+
+def nav_registrar_bloqueo(request):
+    """REGISTRAR VISITA"""
+
+    context = {'title': 'Registro Bloqueo'}
+
+    # SE DEBE ENVIAR LA LISTA DE PERSONAS PARA QUE EL USUARIO ESCOJA LA PESONA QUE SE VA A BLOQUEAR
+    try:
+        response = requests.get(constantsURLs.PERSON_LIST)
+
+        if response.ok:
+            persons = response.json()  # returns a list of dictionaries
+
+            context = {
+                'persons': persons,
             }
 
-            try:
-                urlput = '{}{}'.format(constantsURLs.VEHICLE_UPDATE, placa)
-                response = requests.put(urlput, data=toSubmitData)
-                if response.ok:
-                    context['success'] = "Visita Actualizada con éxito"
-                    context['visit'] = toSubmitData
-                    return render(request, 'SafeComAppFrontend/editarVisita.html', context)
-                else:
-                    # Clean data
-                    txt = response.text.replace("[", "").replace("]", "")
-                    errors = "Visita ya fue registrada" if "already exists" in txt else ""
-                    context['error'] = f"Algo ha salido mal: {errors}"
-            except Exception as e:
-                context['error'] = "Ha ocurrido un error"
+            return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
 
-            return redirect(listar_visita())
+        else:
+            context['error'] = f"Algo ha salido mal con la peticion al servidor"
 
-    def borrar_visita(request):
-        context = {}
-        context['title'] = "Borrar Visita"
-        if request.method == 'GET':
-            plate = request.GET.get('plate')
-            if not plate:
-                return redirect(listar_visita())
-            else:
-                # Get the object
-                req = "{}{}".format(constantsURLs.VISIT_GET, plate)
-                response = requests.get(req)
-                if response.ok:
-                    vehicle = json.loads(response.text)
-                    context['visit'] = vehicle
-                    return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
-                else:
-                    context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
-                    return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
+    except Exception as e:
+        context['error'] = "Ha ocurrido un error"
 
-        return redirect(listar_visita())
+    return render(request, "SafeComAppFrontend/registrarBloqueo.html", context)
 
-    def do_borrar_vehiculo(request):
-        context = {}
 
-        if request.method == 'POST':
+def do_registrar_bloqueo(request):
+    return None
 
-            placa = request.POST['inputPlate']
 
-            try:
-                urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, placa)
-                response = requests.delete(urldelete)
-                if response.ok:
-                    context['success'] = "Visita borrada con éxito"
-                    return render(request, 'SafeComAppFrontend/registrarVisita.html', context)
-                else:
-                    # Clean data
-                    txt = response.text.replace("[", "").replace("]", "")
-                    errors = "Visita no ha sido registrada" if "already exists" in txt else ""
-                    context['error'] = f"Algo ha salido mal: {errors}"
-            except Exception as e:
-                context['error'] = "Ha ocurrido un error"
+def listar_bloqueo(request):
+    return None
 
-            return redirect(listar_visita())
+
+def editar_bloqueo(request):
+    return None
+
+
+def do_actualizar_bloqueo(request):
+    return None
+
+
+def borrar_bloqueo(request):
+    return None
+
+
+def do_borrar_bloqueo(request):
+    return None
