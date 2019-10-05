@@ -28,7 +28,7 @@ VISIT_VISITS = "{}/{}".format(BASEURL, "visit/visits/")
 # ##################################
 # BLACK LIST
 BLACKLIST_CREATE = "{}/{}".format(BASEURL, "blacklist/create")
-BLACKLIST_LIST = "{}/{}".format(BASEURL, "blacklist")
+BLACKLIST_LIST = "{}/{}".format(BASEURL, "blacklist/")
 BLACKLIST_GET = "{}/{}".format(BASEURL, "blacklist/")
 BLACKLIST_UPDATE = "{}/{}".format(BASEURL, "blacklist/update/")
 BLACKLIST_DELETE = "{}/{}".format(BASEURL, "blacklist/delete/")

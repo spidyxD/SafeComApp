@@ -553,11 +553,45 @@ def nav_registrar_bloqueo(request):
 
 
 def do_registrar_bloqueo(request):
-    return None
+    context = {}
+
+    if request.method == 'POST':
+
+        visit_identification = request.POST['inputCedula']
+        reason = request.POST['inputRazon']
+
+        # Crear diccionario
+
+        toSubmitData = {
+            "visit_identification": visit_identification,
+            "reason": reason,
+        }
+
+        try:
+            response = requests.post(constantsURLs.BLACKLIST_CREATE, data=toSubmitData)
+            if response.ok:
+                context['success'] = "Bloqueo Registrado con éxito"
+            else:
+                # Clean data
+                context['error'] = "Ha ocurrido un error"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+    context['title'] = "Registro Bloqueo"
+    return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
 
 
 def listar_bloqueo(request):
-    return None
+    """LISTAR BLOQUEOS """
+    response = requests.get(constantsURLs.BLACKLIST_LIST)
+    bloqueos = response.json()  # returns a list of dictionaries
+
+    context = {
+        'title': 'Lista Bloqueos',
+        'bloqueos': bloqueos,
+    }
+
+    return render(request, "SafeComAppFrontend/listarBloqueos.html", context)
 
 
 def editar_bloqueo(request):

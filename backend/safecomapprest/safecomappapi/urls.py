@@ -26,6 +26,7 @@ urlpatterns = [
     path('recordVisit/create', views.RecordVisitCreate.as_view()),
     #####################################
     # BLACKLIST
-    path('blackList/', views.BlackListList.as_view()),
-    path('blackList/create', views.BlackListCreate.as_view()),
+    path('blacklist/', views.BlackListList.as_view()),
+    path('blacklist/create', views.BlackListCreate.as_view()),
+    path('blacklist/<str:visitor>/', views.BlackListUpdate.as_view()),
 ]

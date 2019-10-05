@@ -177,6 +177,18 @@ class BlackListCreate(generics.ListCreateAPIView):
     serializer_class = BlacklistSerializer
 
 
+class BlackListUpdate(generics.RetrieveUpdateAPIView):
+    serializer_class = BlacklistSerializer
+    lookup_field = "visitor"
+
+    def get_object(self):
+        visitor = self.kwargs["visitor"]
+        return get_object_or_404(Blacklist, visitor=visitor)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
 ######################################################################################
 ## OTHER CLASSES
 

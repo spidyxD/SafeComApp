@@ -52,9 +52,9 @@ class Blacklist(models.Model):
     cedula character varying(12) COLLATE pg_catalog."default",
     """
     blacklist_id = models.AutoField(primary_key=True)
-    visit_identification = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor_black') # one to many relationship
-    plate = models.CharField(max_length=7) #models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='vehicle_black')
+    visitor = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='visitor_black',
+                                unique=True)
     reason = models.CharField(max_length=500)
 
     def __str__(self):
-        return f"{self.visit_identification} {self.plate} {self.reason}"
+        return f"{self.visitor} {self.reason}"
