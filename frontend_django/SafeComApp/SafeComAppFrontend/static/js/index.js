@@ -1,8 +1,8 @@
-console.log("HOLA A TODOS");
 
-$(".seleccionador").click(function () {
-    console.log("aa");
-    var cedula = $(this).find('td:first').html();
-    alert(cedula);
-});
-console.log("fff");
+  $(function()
+  {
+    $(document).on("click", "#seleccionador", function(e) {
+        $("#inputCedula").val($(this).closest("tr").find("td:eq(0)").text());
+        $("#tablaPersonasModal").modal("hide");
+    });
+  });
