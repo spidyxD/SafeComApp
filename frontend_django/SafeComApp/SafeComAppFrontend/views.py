@@ -554,12 +554,30 @@ def do_exit_visita(request):
 #######################################################################################################################
 # Blacklist
 
+
 def nav_registrar_bloqueo(request):
     """REGISTRAR Bloqueo"""
 
     context = {'title': 'Registro Bloqueo'}
+    try:
+        response = requests.get(constantsURLs.PERSON_LIST)
 
-    return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
+        if response.ok:
+            persons = response.json()  # returns a list of dictionaries
+
+            context = {
+                'persons': persons,
+            }
+
+            return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
+
+        else:
+            context['error'] = f"Algo ha salido mal con la peticion al servidor"
+
+    except Exception as e:
+        context['error'] = "Ha ocurrido un error"
+
+    return render(request, "SafeComAppFrontend/registrarBloqueo.html", context)
 
 
 def do_registrar_bloqueo(request):
