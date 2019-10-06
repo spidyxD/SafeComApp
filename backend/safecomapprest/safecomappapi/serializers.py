@@ -29,7 +29,8 @@ class RecordVisitSerializer(serializers.ModelSerializer):
 
 
 class BlacklistSerializer(serializers.ModelSerializer):
+    visitor = PersonSerializer(read_only=True)
 
     class Meta:
         model = Blacklist
-        fields = ['visit_identification', 'plate', 'reason']
+        fields = ['visitor', 'reason']

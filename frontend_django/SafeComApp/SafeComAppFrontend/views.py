@@ -522,42 +522,86 @@ def do_borrar_visita(request):
         return redirect(listar_visita)
 
 
+def do_exit_visita(request):
+    context = {}
+
+    context["title"] = "Inicio"
+
+    if request.method == 'GET':
+
+        # Change the variable if you want
+        # Ej
+        # <a class="btn" href="{% url 'doExitVisita' %}?visitId={{visit.visit_id}}">Dar Salida</a>
+        visit_id = request.GET.get("visitId")
+
+        toSubmitData = {
+            "outgoing_date": datetime.datetime.now(),
+        }
+
+        try:
+            urlExit = '{}{}'.format(constantsURLs.VISIT_EXIT, visit_id)
+            response = requests.patch(urlExit, data=toSubmitData)
+            if response.ok:
+                context['success'] = "Salida de visita con éxito"
+                return render(request, 'SafeComAppFrontend/index.html', context)
+            else:
+                context['error'] = "Algo ha salido mal al dar salida"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return render(request, 'SafeComAppFrontend/index.html', context)
+
 #######################################################################################################################
 # Blacklist
 
 def nav_registrar_bloqueo(request):
-    """REGISTRAR VISITA"""
+    """REGISTRAR Bloqueo"""
 
     context = {'title': 'Registro Bloqueo'}
 
-    # SE DEBE ENVIAR LA LISTA DE PERSONAS PARA QUE EL USUARIO ESCOJA LA PESONA QUE SE VA A BLOQUEAR
-    try:
-        response = requests.get(constantsURLs.PERSON_LIST)
-
-        if response.ok:
-            persons = response.json()  # returns a list of dictionaries
-
-            context = {
-                'persons': persons,
-            }
-
-            return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
-
-        else:
-            context['error'] = f"Algo ha salido mal con la peticion al servidor"
-
-    except Exception as e:
-        context['error'] = "Ha ocurrido un error"
-
-    return render(request, "SafeComAppFrontend/registrarBloqueo.html", context)
+    return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
 
 
 def do_registrar_bloqueo(request):
-    return None
+    context = {}
+
+    if request.method == 'POST':
+
+        visit_identification = request.POST['inputCedula']
+        reason = request.POST['inputRazon']
+
+        # Crear diccionario
+
+        toSubmitData = {
+            "visit_identification": visit_identification,
+            "reason": reason,
+        }
+
+        try:
+            response = requests.post(constantsURLs.BLACKLIST_CREATE, data=toSubmitData)
+            if response.ok:
+                context['success'] = "Bloqueo Registrado con éxito"
+            else:
+                # Clean data
+                context['error'] = "Ha ocurrido un error"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+    context['title'] = "Registro Bloqueo"
+    return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
 
 
 def listar_bloqueo(request):
-    return None
+    """LISTAR BLOQUEOS """
+    response = requests.get(constantsURLs.BLACKLIST_LIST)
+    bloqueos = response.json()  # returns a list of dictionaries
+
+    context = {
+        'title': 'Lista Bloqueos',
+        'bloqueos': bloqueos,
+    }
+
+    return render(request, "SafeComAppFrontend/listarBloqueos.html", context)
 
 
 def editar_bloqueo(request):

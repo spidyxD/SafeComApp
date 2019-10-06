@@ -2,30 +2,32 @@
 
 
   {% block content %}
-<h1>Lista de Personas</h1>
-<table class="table table-striped toDataTable">
+<h1>Lista de Bloqueos</h1>
+<table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Cédula</th>
+      <th scope="col">Cedula</th>
       <th scope="col">Nombre</th>
       <th scope="col">Primer Apellido</th>
-      <th scope="col">Segundo Appellido</th>
-      <th scope="col">Accion</th>
+      <th scope="col">Segundo Apellido</th>
+      <th scope="col">Razon</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
-        {% for person in persons %}
+        {% for bloqueo in bloqueos %}
             <tr>
-                <td>{{person.identification}}</td>
-                <td>{{person.name}}</td>
-                <td>{{person.first_lastname}}</td>
-                <td>{{person.second_lastname}}</td>
+                <td>{{bloqueo.visitor.identification}}</td>
+                <td>{{bloqueo.visitor.name}}</td>
+                <td>{{bloqueo.visitor.first_lastname}}</td>
+                <td>{{bloqueo.visitor.second_lastname}}</td>
+                <td>{{bloqueo.reason}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarPersona' %}?identification={{person.identification}}">Editar</a>
+                    <a class="btn" href="{% url 'editarPersona' %}?identification={{bloqueo.visitor.identification}}">Editar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarPersona' %}?identification={{person.identification}}">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarPersona' %}?identification={{bloqueo.visitor.identification}}">Eliminar</a>
                   </button>
                 </td>
             </tr>
