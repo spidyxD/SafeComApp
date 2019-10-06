@@ -14,7 +14,7 @@ urlpatterns = [
     path('doborrarPersona/', views.do_borrar_persona, name="doborrarPersona"),
     ##########################################################
     # VEHICLE URLS
-    path('registrarVehiculo', views.nav_registrar_vehiculo, name="registroVehiculo"),
+    path('registrarVehiculo', views.nav_registrar_vehiculo, name="registrarVehiculo"),
     path('doregistrarVehiculo', views.do_registrar_vehiculo, name="doregistroVehiculo"),
     path('listarVehiculo', views.listar_vehiculo, name="listarVehiculo"),
     path('editarVehiculo/', views.editar_vehiculo, name="editarVehiculo"),
