@@ -36,7 +36,7 @@ urlpatterns = [
     # BLACKLIST URLS
     path('registrarBloqueo', views.nav_registrar_bloqueo, name="registroBloqueo"),
     path('doregistrarBloqueo', views.do_registrar_bloqueo, name="doregistroBloqueo"),
-    path('listarBloqueo', views.listar_bloqueo, name="listarBloqueo"),
+    path('listarBloqueos', views.listar_bloqueo, name="listarBloqueados"),
     path('editarBloqueo/', views.editar_bloqueo, name="editarBloqueo"),
     path('doeditarBloqueo/', views.do_actualizar_bloqueo, name="doeditarBloqueo"),
     path('borrarBloqueo/', views.borrar_bloqueo, name="borrarBloqueo"),
