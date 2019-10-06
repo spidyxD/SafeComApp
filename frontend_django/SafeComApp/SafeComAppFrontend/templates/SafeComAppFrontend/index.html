@@ -71,11 +71,32 @@
       </ul>
     </div>
   </nav>
+{% block messages %}
+    {% if success %}
 
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+           {{error}}
+        </div>
+
+    {% endif %}
+
+{% endblock %} <!-- END MESSAGES BLOCK -->
 
     {% block content %}
   <!-- SOBRECARGAR EL CONTENIDO DE ESTA SECCION EN LAS DEMAS VISTAS -->
     <h1>Dashboard Safe Community </h1>
+
+        <button type="button" class="btn btn-secondary">
+        <a class="btn" href="{% url 'doExitVisita' %}?visitId=3">Dar salida</a>
+      </button>
 
     {% endblock %}
 

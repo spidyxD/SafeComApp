@@ -24,13 +24,14 @@ urlpatterns = [
     # RECORDVISIT
     path('recordVisits/', views.RecordVisitList.as_view()),
     path('recordVisit/create', views.RecordVisitCreate.as_view()),
-    path('recordVisit/update/<str:pk>', views.RecordVisitCreate.as_view()),
-    path('recordVisit/delete/<str:pk>', views.RecordVisitCreate.as_view()),
+    path('recordVisit/update/<str:pk>', views.RecordVisitUpdate.as_view()),
+    path('recordVisit/exit/<str:pk>', views.RecordVisitUpdate.as_view()),
+    path('recordVisit/delete/<str:pk>', views.RecordVisitDestroy.as_view()),
     #####################################
     # BLACKLIST
     path('blacklist/', views.BlackListList.as_view()),
     path('blacklist/create', views.BlackListCreate.as_view()),
     path('blacklist/<str:visitor>', views.BlackListUpdate.as_view()),
     path('blacklist/update/<str:visitor>', views.BlackListUpdate.as_view()),
-    path('blacklist/delete/<str:visitor>', views.BlackListUpdate.as_view()),
+    path('blacklist/delete/<str:visitor>', views.BlacklistDestroy.as_view()),
 ]

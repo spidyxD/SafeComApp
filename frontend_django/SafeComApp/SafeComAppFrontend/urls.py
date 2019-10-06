@@ -31,6 +31,7 @@ urlpatterns = [
     path('doeditarVisita/', views.do_actualizar_visita, name="doeditarVisita"),
     path('borrarVisita/', views.borrar_visita, name="borrarVisita"),
     path('doborrarVisita/', views.do_borrar_visita, name="doborrarVisita"),
+    path('doExitVisita/', views.do_exit_visita, name="doExitVisita"),
 
     ##########################################################
     # BLACKLIST URLS

@@ -522,6 +522,35 @@ def do_borrar_visita(request):
         return redirect(listar_visita)
 
 
+def do_exit_visita(request):
+    context = {}
+
+    context["title"] = "Inicio"
+
+    if request.method == 'GET':
+
+        # Change the variable if you want
+        # Ej
+        # <a class="btn" href="{% url 'doExitVisita' %}?visitId={{visit.visit_id}}">Dar Salida</a>
+        visit_id = request.GET.get("visitId")
+
+        toSubmitData = {
+            "outgoing_date": datetime.datetime.now(),
+        }
+
+        try:
+            urlExit = '{}{}'.format(constantsURLs.VISIT_EXIT, visit_id)
+            response = requests.patch(urlExit, data=toSubmitData)
+            if response.ok:
+                context['success'] = "Salida de visita con éxito"
+                return render(request, 'SafeComAppFrontend/index.html', context)
+            else:
+                context['error'] = "Algo ha salido mal al dar salida"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return render(request, 'SafeComAppFrontend/index.html', context)
+
 #######################################################################################################################
 # Blacklist
 

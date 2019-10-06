@@ -163,6 +163,30 @@ class RecordVisitCreate(generics.ListCreateAPIView):
     queryset = RecordVisit.objects.all()
     serializer_class = RecordVisitSerializer
 
+
+class RecordVisitUpdate(generics.RetrieveUpdateAPIView):
+    serializer_class = RecordVisitSerializer
+
+    def get_object(self):
+        visit_id = self.kwargs["pk"]
+        return get_object_or_404(RecordVisit, visit_id=visit_id)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+class RecordVisitDestroy(generics.DestroyAPIView):
+    serializer_class = RecordVisitSerializer
+
+    def get_queryset(self):
+        queryset = RecordVisit.objects.filter(visit_id=self.kwargs['pk'])
+        return queryset
+
+    def preform_destroy(self, instance):
+        serializer = RecordVisitSerializer(data=self.get_queryset())
+        serializer.is_valid(True)
+        return instance.delete()
+
 ######################################################################################
 ## BLACK LIST
 
@@ -188,6 +212,19 @@ class BlackListUpdate(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+
+class BlacklistDestroy(generics.DestroyAPIView):
+    serializer_class = BlacklistSerializer
+    lookup_field = "visitor"
+
+    def get_queryset(self):
+        queryset = Blacklist.objects.filter(visitor=self.kwargs['visitor'])
+        return queryset
+
+    def preform_destroy(self, instance):
+        serializer = BlacklistSerializer(data=self.get_queryset())
+        serializer.is_valid(True)
+        return instance.delete()
 
 ######################################################################################
 ## OTHER CLASSES

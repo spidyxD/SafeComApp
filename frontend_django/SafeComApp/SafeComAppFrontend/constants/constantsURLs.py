@@ -19,12 +19,13 @@ VEHICLE_DELETE = "{}/{}".format(BASEURL, "vehicle/delete/")
 VEHICLE_VISITS = "{}/{}".format(BASEURL, "vehicle/visits/")
 # ##################################
 # VISIT
-VISIT_CREATE = "{}/{}".format(BASEURL, "visit/create")
-VISIT_LIST = "{}/{}".format(BASEURL, "visits")
-VISIT_GET = "{}/{}".format(BASEURL, "visit/")
-VISIT_UPDATE = "{}/{}".format(BASEURL, "visit/update/")
-VISIT_DELETE = "{}/{}".format(BASEURL, "visit/delete/")
-VISIT_VISITS = "{}/{}".format(BASEURL, "visit/visits/")
+VISIT_CREATE = "{}/{}".format(BASEURL, "recordVisit/create")
+VISIT_LIST = "{}/{}".format(BASEURL, "recordVisits")
+VISIT_GET = "{}/{}".format(BASEURL, "recordVisit/")
+VISIT_UPDATE = "{}/{}".format(BASEURL, "recordVisit/update/")
+VISIT_DELETE = "{}/{}".format(BASEURL, "recordVisit/delete/")
+VISIT_VISITS = "{}/{}".format(BASEURL, "recordVisit/visits/")
+VISIT_EXIT = "{}/{}".format(BASEURL, "recordVisit/exit/")
 # ##################################
 # BLACK LIST
 BLACKLIST_CREATE = "{}/{}".format(BASEURL, "blacklist/create")
