@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Historial de visitas</title>
-</head>
-<body>
- <h1>Historial de visitas</h1>
+{% extends "SafeComAppFrontend/index.html" %}
+
+
+  {% block content %}
+<h1>Historial de visitas</h1>
   <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
@@ -39,5 +36,24 @@
 
   </tbody>
 </table>
-</body>
-</html>
+
+{% block messages %}
+    {% if success %}
+
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+           {{error}}
+        </div>
+
+    {% endif %}
+
+{% endblock %} <!-- END MESSAGES BLOCK -->
+
+  {% endblock %}

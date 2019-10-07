@@ -278,7 +278,7 @@ def listar_vehiculo(request):
         'vehicles': vehicles,
     }
 
-    return render(request, "SafeComAppFrontend/listaVehiculo.html", context)
+    return render(request, "SafeComAppFrontend/listarVehiculo.html", context)
 
 
 def editar_vehiculo(request):
@@ -397,7 +397,7 @@ def do_registrar_visita(request):
             context['error'] = "Ha ocurrido un error"
 
     context['title'] = "Registro Visita"
-    return render(request, 'SafeComAppFrontend/registrarVisita.html', context)
+    return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
 
 
 def do_actualizar_visita(request):

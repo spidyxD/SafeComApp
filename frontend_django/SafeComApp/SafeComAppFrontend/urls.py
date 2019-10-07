@@ -15,7 +15,7 @@ urlpatterns = [
     ##########################################################
     # VEHICLE URLS
     path('registrarVehiculo', views.nav_registrar_vehiculo, name="registrarVehiculo"),
-    path('doregistrarVehiculo', views.do_registrar_vehiculo, name="doregistroVehiculo"),
+    path('doRegistroVehiculo', views.do_registrar_vehiculo, name="doRegistroVehiculo"),
     path('listarVehiculo', views.listar_vehiculo, name="listarVehiculo"),
     path('editarVehiculo/', views.editar_vehiculo, name="editarVehiculo"),
     path('doeditarVehiculo/', views.do_actualizar_vehiculo, name="doeditarVehiculo"),
