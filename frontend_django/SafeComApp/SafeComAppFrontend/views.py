@@ -447,7 +447,7 @@ def listar_visita(request):
         'visits': visits,
     }
 
-    return render(request, "SafeComAppFrontend/listaVisitas.html", context)
+    return render(request, "SafeComAppFrontend/historialVisitas.html", context)
 
 
 def editar_visita(request):
