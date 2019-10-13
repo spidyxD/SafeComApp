@@ -378,8 +378,24 @@ def do_borrar_vehiculo(request):
 def nav_registrar_visita(request):
     """REGISTRAR VISITA"""
     context = {'title': 'Registro Visita'}
+    try:
+        response = requests.get(constantsURLs.PERSON_LIST)
+
+        if response.ok:
+            persons = response.json()  # returns a list of dictionaries
+
+            context = {
+                'persons': persons,
+            }
+
+            return render(request, "SafeComAppFrontend/registrarVisita.html", context)
+
+        else:
+            context['error'] = f"Algo ha salido mal con la peticion al servidor"
+    except Exception as e:
+        context['error'] = "Ha ocurrido un error"
     # SE DEBE ENVIAR LA LISTA DE VEHICULOS PARA QUE EL USUARIO ESCOJA EL VEHICULO QUE ESTA INGRESANDO
-    return render(request, "SafeComAppFrontend/historialVisitas.html", context)
+    return render(request, "SafeComAppFrontend/registrarVisita.html", context)
 
 
 def do_registrar_visita(request):

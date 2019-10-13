@@ -2,38 +2,41 @@
 
 
   {% block content %}
-<h1>Registro de Vehiculo</h1>
+<h1>Registro de Visitas</h1>
 
-<form action="{% url 'doRegistroVehiculo' %}" method="POST">
+<form action="{% url 'doregistroVisita' %}" method="POST">
 
     {% csrf_token %}
- <!-- Button trigger modal -->
-        <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
-            Buscar Persona
-        </button>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
+        Buscar Persona
+    </button>
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputCedula">Propietario</label>
+            <label for="inputCedula">Cedula</label>
             <input class="form-control" id="inputCedula" name="inputCedula" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputNombre">Nombre del visitante</label>
+            <input class="form-control" id="inputNombre" name="inputNombre" type="text" required readonly>
         </div>
     </div>
 
     <div class="form-row">
-         <div class="form-group col-md-4">
-            <label for="inputPlate">Numero de placa</label>
-            <input class="form-control" id="inputPlate" name="inputPlate" type="text" required>
+        <div class="form-group col-md-4">
+            <label for="fechaIngreso">Fecha de ingreso</label>
+            <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso"  required>
         </div>
         <div class="form-group col-md-4">
-            <label for="inputBrand">Marca</label>
-            <input class="form-control" id="inputBrand" name="inputBrand" type="text" required>
+   <label for="inputPlaca">Numero de placa</label>
+            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text">
         </div>
+    </div>
+    <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputModel">Modelo</label>
-            <input class="form-control" id="inputModel" name="inputModel" type="text" required>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputColor">Color</label>
-            <input class="form-control" id="inputColor" name="inputColor" type="text" required>
+            <label for="inputMotivo">Motivo</label>
+            <textarea class="form-control" id="inputMotivo" name="inputMotivo" type="area" required></textarea>
         </div>
     </div>
 
@@ -60,6 +63,12 @@
     {% endif %}
 
 {% endblock %} <!-- END MESSAGES BLOCK -->
+
+
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="tablaPersonasModal">
@@ -96,7 +105,7 @@
                                         <td>{{person.first_lastname}}</td>
                                         <td>{{person.second_lastname}}</td>
                                         <td>
-                                            <button onclick="javascript:fillPersonData({{person.identification}})" type="button" class="btn btn-secondary" id="seleccionador">
+                                            <button onclick="javascript:fillPersonData('{{person.identification}}','{{person.name}} {{person.first_lastname}} {{person.second_lastname}}')" type="button" class="btn btn-secondary" id="seleccionador">
                                                 <span>Seleccionar</span>
                                             </button>
                                         </td>
@@ -124,8 +133,9 @@
      }
 </style>
 <script>
-    function fillPersonData(id){
+    function fillPersonData(id,name){
         $("#inputCedula").val(id);
+        $("#inputNombre").val(name);
     }
 
 </script>
