@@ -91,7 +91,7 @@
                                         <td>{{person.first_lastname}}</td>
                                         <td>{{person.second_lastname}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-secondary" id="seleccionador">
+                                            <button onclick="javascript:fillPersonData({{person.identification}})" type="button" class="btn btn-secondary" id="seleccionador">
                                                 <span>Seleccionar</span>
                                             </button>
                                         </td>
@@ -118,5 +118,10 @@
             max-width: 80% !important;
      }
 </style>
+<script>
+    function fillPersonData(id){
+        $("#inputCedula").val(id);
+    }
 
+</script>
 {% endblock %} <!-- End content sobreescrito -->

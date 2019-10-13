@@ -17,3 +17,5 @@ $(function () {
         $("#tablaPersonasModal").modal("hide");
     });
 });
+
+
