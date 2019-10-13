@@ -196,9 +196,14 @@ class BlackListList(generics.ListAPIView):
     serializer_class = BlacklistSerializer
 
 
-class BlackListCreate(generics.ListCreateAPIView):
+class BlackListCreate(generics.CreateAPIView):
     queryset = Blacklist.objects.all()
     serializer_class = BlacklistSerializer
+    #lookup_field = "visitor"
+
+   # def post(self, request, *args, **kwargs):
+   #    pass
+
 
 
 class BlackListUpdate(generics.RetrieveUpdateAPIView):

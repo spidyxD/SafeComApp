@@ -30,7 +30,17 @@ class RecordVisitSerializer(serializers.ModelSerializer):
 
 class BlacklistSerializer(serializers.ModelSerializer):
     visitor = PersonSerializer(read_only=True)
+    #visitor = serializers.CharField(read_only=True, source='visitor.identification')
+    #visitor = serializers.PrimaryKeyRelatedField()
+
 
     class Meta:
         model = Blacklist
         fields = ['visitor', 'reason']
+
+    def create(self, validated_data):
+        identification = self._kwargs['data']['visitor']
+        reason = validated_data.pop('reason')
+        person = Person.objects.get(identification=identification)
+        blk_Obj = Blacklist.objects.create(visitor=person, reason=reason)
+        return blk_Obj
