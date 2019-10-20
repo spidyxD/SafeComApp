@@ -17,6 +17,17 @@ class VehicleSerializer(serializers.ModelSerializer):
         model = Vehicle
         fields = ['plate', 'model', 'brand', 'color', 'owner']
 
+    def create(self, validated_data):
+        identification = self._kwargs['data']['owner']
+        plate = validated_data.pop('plate')
+        model = validated_data.pop('model')
+        color = validated_data.pop('color')
+        brand = validated_data.pop('brand')
+        person = Person.objects.get(identification=identification)
+        vehicle_created = Vehicle.objects.create(owner=person, plate=plate, model=model, brand=brand, color=color)
+
+        return vehicle_created
+
 
 class RecordVisitSerializer(serializers.ModelSerializer):
 
@@ -27,10 +38,31 @@ class RecordVisitSerializer(serializers.ModelSerializer):
         model = RecordVisit
         fields = ['visit_id', 'incoming_date', 'outgoing_date', 'reason', 'plate'] # , 'visit_identification' ]
 
+    def create(self, validated_data):
+
+        plate = self._kwargs['data']['plate']
+        incoming_date = self._kwargs['data']['incoming_date']
+        reason = validated_data.pop('reason')
+
+        vehicle = Vehicle.objects.get(plate=plate)
+        record_visit_created = RecordVisit.objects.create(plate=vehicle, reason=reason, incoming_date=incoming_date)
+
+        return record_visit_created
+
 
 class BlacklistSerializer(serializers.ModelSerializer):
     visitor = PersonSerializer(read_only=True)
+    #visitor = serializers.CharField(read_only=True, source='visitor.identification')
+    #visitor = serializers.PrimaryKeyRelatedField()
+
 
     class Meta:
         model = Blacklist
         fields = ['visitor', 'reason']
+
+    def create(self, validated_data):
+        identification = self._kwargs['data']['visitor']
+        reason = validated_data.pop('reason')
+        person = Person.objects.get(identification=identification)
+        blk_Obj = Blacklist.objects.create(visitor=person, reason=reason)
+        return blk_Obj
