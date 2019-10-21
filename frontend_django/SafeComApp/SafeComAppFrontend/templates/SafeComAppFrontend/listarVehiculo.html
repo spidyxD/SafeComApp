@@ -14,22 +14,22 @@
     </tr>
   </thead>
   <tbody>
-
+            {% for vehicle in vehicles %}
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{vehicle.plate}}</td>
+                <td>{{vehicle.brand}}</td>
+                <td>{{vehicle.model}}</td>
+                <td>{{vehicle.color}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="">Actualizar</a>
+                    <a class="btn" href="{% url 'editarVehiculo' %}?identification={{vehiculo.placa}}">Actualizar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarVehiculo' %}?identification={{vehiculo.placa}}">Eliminar</a>
                   </button>
                 </td>
             </tr>
-
+            {% endfor %}
   </tbody>
 </table>
 
