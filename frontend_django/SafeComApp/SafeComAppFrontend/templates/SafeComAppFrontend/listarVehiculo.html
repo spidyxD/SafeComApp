@@ -22,10 +22,10 @@
                 <td>{{vehicle.color}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarVehiculo' %}?identification={{vehiculo.placa}}">Actualizar</a>
+                    <a class="btn" href="{% url 'editarVehiculo' %}?plate={{vehicle.plate}}">Actualizar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarVehiculo' %}?identification={{vehiculo.placa}}">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarVehiculo' %}?plate={{vehicle.plate}}">Eliminar</a>
                   </button>
                 </td>
             </tr>

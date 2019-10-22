@@ -9,8 +9,11 @@
       <th scope="col">Fecha de ingreso</th>
       <th scope="col">Fecha de salida</th>
       <th scope="col">Placa del vehiculo</th>
+         <th scope="col">Identificacion</th>
         <th scope="col">Nombre del visitante</th>
-        <th scope="col">Identificacion</th>
+        <th scope="col">Motivo</th>
+
+
       <th scope="col">Accion</th>
     </tr>
   </thead>
@@ -22,12 +25,13 @@
                 <td>{{visit.plate.plate}}</td>
                 <td>{{visit.plate.owner.identification}}</td>
                 <td>{{visit.plate.owner.name}}</td>
+                <td>{{visit.reason}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarVisita' %}?identification={{visit.plate}}">Actualizar</a>
+                    <a class="btn" href="{% url 'editarVisita' %}?plate={{visit.plate.plate}}">Actualizar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarVisita' %}?identification={{visit.plate}}">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarVisita' %}?plate={{visit.plate.plate}}">Eliminar</a>
                   </button>
                 </td>
             </tr>

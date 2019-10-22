@@ -305,7 +305,7 @@ def editar_vehiculo(request):
     context['title'] = "Editar Vehiculo"
 
     if request.method == 'GET':
-        plate = request.GET.get('placa')
+        plate = request.GET.get('plate')
         if not plate:
             return redirect(listar_vehiculo)
         else:
@@ -444,6 +444,7 @@ def do_actualizar_visita(request):
         placa = request.POST['inputPlate']
         motivo = request.POST['inputReason']
 
+
         # Crear diccionario
 
         toSubmitData = {
@@ -459,7 +460,7 @@ def do_actualizar_visita(request):
             if response.ok:
                 context['success'] = "Visita Actualizada con éxito"
                 context['visit'] = toSubmitData
-                return render(request, 'SafeComAppFrontend/editarVisita.html', context)
+                return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
@@ -490,16 +491,16 @@ def editar_visita(request):
     context['title'] = "Editar Visita"
 
     if request.method == 'GET':
-        plate = request.GET.get('placa')
+        plate = request.GET.get('plate')
         if not plate:
-            return redirect(listar_vehiculo)
+            return redirect(listar_visita)
         else:
             # Get the object
             req = "{}{}".format(constantsURLs.VISIT_GET, plate)
             response = requests.get(req)
             if response.ok:
-                vehicle = json.loads(response.text)
-                context['visit'] = vehicle
+                visit = json.loads(response.text)
+                context['visit'] = visit
                 return render(request, 'SafeComAppFrontend/editarVisita.html', context)
             else:
                 context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
@@ -522,8 +523,8 @@ def borrar_visita(request):
             req = "{}{}".format(constantsURLs.VISIT_GET, plate)
             response = requests.get(req)
             if response.ok:
-                vehicle = json.loads(response.text)
-                context['visit'] = vehicle
+                visit = json.loads(response.text)
+                context['visit'] = visit
                 return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
             else:
                 context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
@@ -544,7 +545,7 @@ def do_borrar_visita(request):
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Visita borrada con éxito"
-                return render(request, 'SafeComAppFrontend/registrarVisita.html', context)
+                return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
