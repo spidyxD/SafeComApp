@@ -61,7 +61,7 @@ class BlacklistSerializer(serializers.ModelSerializer):
         fields = ['visitor', 'reason']
 
     def create(self, validated_data):
-        identification = self._kwargs['data']['visitor']
+        identification = self._kwargs['data']['visit_identification']
         reason = validated_data.pop('reason')
         person = Person.objects.get(identification=identification)
         blk_Obj = Blacklist.objects.create(visitor=person, reason=reason)
