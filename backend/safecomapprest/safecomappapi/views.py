@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from requests import Response
 from rest_framework import generics
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .models import Person, Vehicle, RecordVisit, Blacklist
@@ -116,13 +117,29 @@ class VehicleUpdate(generics.RetrieveUpdateAPIView):
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+        """
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        #create the data
+        new_data = {'color': request.data['color'], 'plate': instance.plate, 'brand': instance.brand, 'model': instance.model}
+        serializer = self.get_serializer(instance, data=new_data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+        """
 
 
 class VehicleDestroy(generics.DestroyAPIView):
     serializer_class = VehicleSerializer
 
     def get_queryset(self):
-        queryset = Vehicle.objects.filter(identification=self.kwargs['pk'])
+        queryset = Vehicle.objects.filter(plate=self.kwargs['pk'])
         return queryset
 
     def preform_destroy(self, instance):

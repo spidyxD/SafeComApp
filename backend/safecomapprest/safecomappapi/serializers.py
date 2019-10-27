@@ -27,6 +27,14 @@ class VehicleSerializer(serializers.ModelSerializer):
         vehicle_created = Vehicle.objects.create(owner=person, plate=plate, model=model, brand=brand, color=color)
 
         return vehicle_created
+"""
+   def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
+        instance.content = validated_data.get('content', instance.content)
+        instance.created = validated_data.get('created', instance.created)
+        instance.save()
+        return instance
+"""
 
 
 class RecordVisitSerializer(serializers.ModelSerializer):
