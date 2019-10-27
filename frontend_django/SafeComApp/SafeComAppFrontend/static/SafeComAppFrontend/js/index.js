@@ -8,12 +8,12 @@ $(function () {
     });
 });
 
-    function setDateformatIN(date){
-        var formatDate  = new Date(date);
-        document.getElementById("inDate").value = formatDate)
-    }
+function setDateformatIN(date){
+    var formatDate  = new Date(date);
+    document.getElementById("inDate").value = formatDate
+}
 
-    function setDateformatOUT(date){
-        var formatDate  =  new Date(date);
-        document.getElementById("outDate").value = formatDate)
-    }
+function setDateformatOUT(date){
+    var formatDate  =  new Date(date);
+    document.getElementById("outDate").value = formatDate
+}
