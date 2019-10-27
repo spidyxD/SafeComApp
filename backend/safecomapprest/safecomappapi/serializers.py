@@ -66,7 +66,7 @@ class BlacklistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blacklist
-        fields = ['visitor', 'reason']
+        fields = ['blacklist_id', 'visitor', 'reason']
 
     def create(self, validated_data):
         identification = self._kwargs['data']['visit_identification']
