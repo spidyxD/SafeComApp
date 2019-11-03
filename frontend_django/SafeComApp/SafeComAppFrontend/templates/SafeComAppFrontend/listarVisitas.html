@@ -20,8 +20,8 @@
   <tbody>
             {% for visit in visits %}
             <tr>
-                <td><input type="date" id="inDate" onload="setDateformatIN('{{visit.incoming_date}}')"></td>
-                <td><input type="date" id="outDate" onload="setDateformatOUT ('{{visit.outgoing_date}}')"></td>
+                <td class="toFormatDatetime">{{visit.incoming_date}}</td>
+                <td class="toFormatDatetime">{{visit.outgoing_date}}</td>
                 <td>{{visit.plate.plate}}</td>
                 <td>{{visit.plate.owner.identification}}</td>
                 <td>{{visit.plate.owner.name}}</td>

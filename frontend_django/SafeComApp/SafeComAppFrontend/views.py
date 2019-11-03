@@ -431,7 +431,7 @@ def do_registrar_visita(request):
             context['error'] = "Ha ocurrido un error"
 
     context['title'] = "Registro Visita"
-    return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
+    return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
 
 
 def do_actualizar_visita(request):
@@ -460,7 +460,7 @@ def do_actualizar_visita(request):
             if response.ok:
                 context['success'] = "Visita Actualizada con éxito"
                 context['visit'] = toSubmitData
-                return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
+                return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
@@ -482,7 +482,7 @@ def listar_visita(request):
         'visits': visits,
     }
 
-    return render(request, "SafeComAppFrontend/historialVisitas.html", context)
+    return render(request, "SafeComAppFrontend/listarVisitas.html", context)
 
 
 def editar_visita(request):
@@ -545,7 +545,7 @@ def do_borrar_visita(request):
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Visita borrada con éxito"
-                return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
+                return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
