@@ -9,30 +9,48 @@
     {% csrf_token %}
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
-        Buscar Persona
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaVehiclesModal">
+        Buscar Placa del vehiculo
     </button>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="inputPlaca">Numero de placa</label>
+            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputMarca">Marca</label>
+            <input class="form-control" id="inputMarca" name="inputPlaca" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputModelo">Modelo</label>
+            <input class="form-control" id="inputModelo" name="inputPlaca" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputColor">Color</label>
+            <input class="form-control" id="inputColor" name="inputPlaca" type="text" required readonly>
+        </div>
+    </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputCedula">Cedula</label>
             <input class="form-control" id="inputCedula" name="inputCedula" type="text" required readonly>
         </div>
         <div class="form-group col-md-4">
-            <label for="inputNombre">Nombre del visitante</label>
-            <input class="form-control" id="inputNombre" name="inputNombre" type="text" required readonly>
+            <label for="inputNombreCompleto">Nombre del visitante</label>
+            <input class="form-control" id="inputNombreCompleto" name="inputNombre" type="text" required readonly>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="fechaIngreso">Fecha de ingreso</label>
-            <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso"  required>
-        </div>
-        <div class="form-group col-md-4">
-   <label for="inputPlaca">Numero de placa</label>
-            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text">
+            <input type="datetime-local" class="form-control" id="fechaIngreso" name="fechaIngreso"  required>
         </div>
     </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputMotivo">Motivo</label>
@@ -71,12 +89,12 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="tablaPersonasModal">
+<div class="modal fade" id="tablaVehiclesModal">
     <div class="modal-dialog modal-bigger">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="col-12 modal-title text-center">
-                    Seleccionar Persona
+                    Seleccionar Vehiculo
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -90,22 +108,26 @@
                                 <table class="table table-striped" id="tablaPersonas">
                                     <thead class="thead-dark">
                                     <tr>
+                                        <th scope="col">Placa</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Color</th>
                                         <th scope="col">Cédula</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Primer Apellido</th>
-                                        <th scope="col">Segundo Apellido</th>
+                                        <th scope="col">Dueño</th>
                                         <th scope="col">Accion</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for person in persons %}
+                                    {% for vehicle in vehicles %}
                                     <tr>
-                                        <td>{{person.identification}}</td>
-                                        <td>{{person.name}}</td>
-                                        <td>{{person.first_lastname}}</td>
-                                        <td>{{person.second_lastname}}</td>
+                                        <td>{{vehicle.plate}}</td>
+                                        <td>{{vehicle.brand}}</td>
+                                        <td>{{vehicle.model}}</td>
+                                        <td>{{vehicle.color}}</td>
+                                        <td>{{vehicle.owner.identification}}</td>
+                                        <td>{{vehicle.owner.name}}&nbsp;{{vehicle.owner.first_lastname}}&nbsp;{{vehicle.owner.second_lastname}}</td>
                                         <td>
-                                            <button onclick="javascript:fillPersonData('{{person.identification}}','{{person.name}} {{person.first_lastname}} {{person.second_lastname}}')" type="button" class="btn btn-secondary" id="seleccionador">
+                                            <button type="button" class="btn btn-secondary" id="seleccionadorVehicle">
                                                 <span>Seleccionar</span>
                                             </button>
                                         </td>
@@ -132,11 +154,5 @@
             max-width: 80% !important;
      }
 </style>
-<script>
-    function fillPersonData(id,name){
-        $("#inputCedula").val(id);
-        $("#inputNombre").val(name);
-    }
 
-</script>
 {% endblock %} <!-- End content sobreescrito -->

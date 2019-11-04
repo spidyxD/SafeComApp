@@ -30,14 +30,19 @@ $(function () {
         $("#tablaPersonasModal").modal("hide");
     });
 
+    $(document).on("click", "#seleccionadorVehicle", function (e) {
+
+        $("#inputPlaca").val($(this).closest("tr").find("td:eq(0)").text());
+        $("#inputMarca").val($(this).closest("tr").find("td:eq(1)").text());
+        $("#inputModelo").val($(this).closest("tr").find("td:eq(2)").text());
+        $("#inputColor").val($(this).closest("tr").find("td:eq(3)").text());
+        $("#inputCedula").val($(this).closest("tr").find("td:eq(4)").text());
+        $("#inputNombreCompleto").val($(this).closest("tr").find("td:eq(5)").text());
+
+        $("#tablaVehiclesModal").modal("hide");
+    });
+
     mapDatesListVisits();
-    /*
-    *
-    * new Date("2019-11-01T19:57:11.891738-06:00").getUTCMonth()
-10
-new Date("2019-11-01T19:57:11.891738-06:00").getUTCDate()
-2
-new Date("2019-11-01T19:57:11.891738-06:00").getUTCFullYear()*/
 
 });
 

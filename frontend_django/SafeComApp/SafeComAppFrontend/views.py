@@ -379,13 +379,13 @@ def nav_registrar_visita(request):
     """REGISTRAR VISITA"""
     context = {'title': 'Registro Visita'}
     try:
-        response = requests.get(constantsURLs.PERSON_LIST)
+        response = requests.get(constantsURLs.VEHICLE_LIST)
 
         if response.ok:
-            persons = response.json()  # returns a list of dictionaries
+            vehicles = response.json()  # returns a list of dictionaries
 
             context = {
-                'persons': persons,
+                'vehicles': vehicles,
             }
 
             return render(request, "SafeComAppFrontend/registrarVisita.html", context)
@@ -404,7 +404,6 @@ def do_registrar_visita(request):
     if request.method == 'POST':
 
         fecha_ingreso = request.POST['inputIncomingDate']
-        fecha_salida = request.POST['inputOutgoingDate']
         placa = request.POST['inputPlate']
         motivo = request.POST['inputReason']
 
@@ -412,7 +411,6 @@ def do_registrar_visita(request):
 
         toSubmitData = {
             "incoming_date": fecha_ingreso,
-            "outgoing_date": fecha_salida,
             "plate": placa,
             "reason": motivo
 
