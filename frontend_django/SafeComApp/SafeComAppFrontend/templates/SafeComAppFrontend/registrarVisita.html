@@ -21,15 +21,15 @@
         </div>
         <div class="form-group col-md-3">
             <label for="inputMarca">Marca</label>
-            <input class="form-control" id="inputMarca" name="inputPlaca" type="text" required readonly>
+            <input class="form-control" id="inputMarca" name="inputMarca" type="text" required readonly>
         </div>
         <div class="form-group col-md-3">
             <label for="inputModelo">Modelo</label>
-            <input class="form-control" id="inputModelo" name="inputPlaca" type="text" required readonly>
+            <input class="form-control" id="inputModelo" name="inputModelo" type="text" required readonly>
         </div>
         <div class="form-group col-md-3">
             <label for="inputColor">Color</label>
-            <input class="form-control" id="inputColor" name="inputPlaca" type="text" required readonly>
+            <input class="form-control" id="inputColor" name="inputColor" type="text" required readonly>
         </div>
     </div>
 
@@ -40,21 +40,25 @@
         </div>
         <div class="form-group col-md-4">
             <label for="inputNombreCompleto">Nombre del visitante</label>
-            <input class="form-control" id="inputNombreCompleto" name="inputNombre" type="text" required readonly>
+            <input class="form-control" id="inputNombreCompleto" name="inputNombreCompleto" type="text" required readonly>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="fechaIngreso">Fecha de ingreso</label>
-            <input type="datetime-local" class="form-control" id="fechaIngreso" name="fechaIngreso"  required>
+            <label for="inputIncomingDate">Fecha de ingreso</label>
+            <input type="date" class="form-control" id="inputIncomingDate" name="inputIncomingDate"  required>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputIncomingDateHour">Hora de ingreso</label>
+            <input type="time" class="form-control" id="inputIncomingDateHour" name="inputIncomingDateHour"  required>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputMotivo">Motivo</label>
-            <textarea class="form-control" id="inputMotivo" name="inputMotivo" type="area" required></textarea>
+            <label for="inputReason">Motivo</label>
+            <textarea class="form-control" id="inputReason" name="inputReason" required></textarea>
         </div>
     </div>
 

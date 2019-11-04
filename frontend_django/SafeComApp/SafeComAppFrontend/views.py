@@ -384,9 +384,7 @@ def nav_registrar_visita(request):
         if response.ok:
             vehicles = response.json()  # returns a list of dictionaries
 
-            context = {
-                'vehicles': vehicles,
-            }
+            context['vehicles'] = vehicles
 
             return render(request, "SafeComAppFrontend/registrarVisita.html", context)
 
@@ -404,11 +402,13 @@ def do_registrar_visita(request):
     if request.method == 'POST':
 
         fecha_ingreso = request.POST['inputIncomingDate']
-        placa = request.POST['inputPlate']
+        fecha_ingresoHora = request.POST['inputIncomingDateHour']
+        placa = request.POST['inputPlaca']
         motivo = request.POST['inputReason']
 
-        # Crear diccionario
+        fecha_ingreso = f"{fecha_ingreso} {fecha_ingresoHora}"
 
+        # Crear diccionario
         toSubmitData = {
             "incoming_date": fecha_ingreso,
             "plate": placa,
@@ -418,8 +418,11 @@ def do_registrar_visita(request):
 
         try:
             response = requests.post(constantsURLs.VISIT_CREATE, data=toSubmitData)
+            responseLista = requests.get(constantsURLs.VISIT_LIST)
+            visits = responseLista.json()  # returns a list of dictionaries
             if response.ok:
                 context['success'] = "Visita Registrada con éxito"
+                context['visits'] = visits
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
@@ -428,7 +431,7 @@ def do_registrar_visita(request):
         except Exception as e:
             context['error'] = "Ha ocurrido un error"
 
-    context['title'] = "Registro Visita"
+    context['title'] = "Lista Visitas"
     return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
 
 
@@ -476,7 +479,7 @@ def listar_visita(request):
     visits = response.json()  # returns a list of dictionaries
 
     context = {
-        'title': 'Visits',
+        'title': 'Lista Visitas',
         'visits': visits,
     }
 
