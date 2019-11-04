@@ -7,11 +7,16 @@
 <form action="{% url 'doborrarVehiculo' %}" method="DELETE">
 
     {% csrf_token %}
-
+     <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputOwner">Propietario</label>
+                <input class="form-control" id="inputOwner" name="inputOwner" type="text" value="{{vehicle.owner.identification}}" required readonly>
+            </div>
+    </div>
      <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputPlaca">Numero de placa</label>
-            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" readonly value="{{vehicle.plate}}">
+            <label for="inputPlate">Numero de placa</label>
+            <input class="form-control" id="inputPlate" name="inputPlate" type="text" readonly value="{{vehicle.plate}}">
         </div>
     </div>
 

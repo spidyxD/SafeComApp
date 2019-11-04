@@ -7,22 +7,27 @@
 <form action="{% url 'doeditarVehiculo' %}" method="POST">
 
     {% csrf_token %}
-
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputPlaca">Numero de placa</label>
-            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" readonly value="{{vehicle.plate}}">
+            <label for="inputOwner">Propietario</label>
+            <input class="form-control" id="inputOwner" name="inputOwner" type="text" value="{{vehicle.owner.identification}}" required readonly>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputPlate">Numero de placa</label>
+            <input class="form-control" id="inputPlate" name="inputPlate" type="text" readonly value="{{vehicle.plate}}">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputMarca">Marca</label>
-            <input class="form-control" id="inputMarca" name="inputMarca" type="text" required value="{{vehicle.brand}}">
+            <label for="inputBrand">Marca</label>
+            <input class="form-control" id="inputBrand" name="inputBrand" type="text" required value="{{vehicle.brand}}">
         </div>
         <div class="form-group col-md-4">
-            <label for="inputModelo">Modelo</label>
-            <input class="form-control" id="inputModelo" name="inputModelo" type="text" required value="{{vehicle.model}}">
+            <label for="inputModel">Modelo</label>
+            <input class="form-control" id="inputModel" name="inputModel" type="text" required value="{{vehicle.model}}">
         </div>
         <div class="form-group col-md-4">
             <label for="inputColor">Color</label>

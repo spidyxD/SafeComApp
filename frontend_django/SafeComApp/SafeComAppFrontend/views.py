@@ -232,7 +232,7 @@ def do_registrar_vehiculo(request):
         }
 
         try:
-            response = requests.post(constantsURLs.PERSON_CREATE, data=toSubmitData)
+            response = requests.post(constantsURLs.VEHICLE_CREATE, data=toSubmitData)
             if response.ok:
                 context['success'] = "Vehiculo Registrado con éxito"
             else:
@@ -352,14 +352,14 @@ def do_borrar_vehiculo(request):
 
     if request.method == 'POST':
 
-        placa = request.POST['inputPlaca']
+        placa = request.POST['inputPlate']
 
         try:
             urldelete = '{}{}'.format(constantsURLs.VEHICLE_DELETE, placa)
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Vehiculo borrado con éxito"
-                return render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
+                return render(request, 'SafeComAppFrontend/listarVehiculo.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
@@ -538,10 +538,10 @@ def do_borrar_visita(request):
 
     if request.method == 'POST':
 
-        placa = request.POST['inputPlate']
+        user = request.GET.get('identification')
 
         try:
-            urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, placa)
+            urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, user)
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Visita borrada con éxito"
@@ -657,17 +657,48 @@ def listar_bloqueo(request):
     return render(request, "SafeComAppFrontend/listarBloqueos.html", context)
 
 
-def editar_bloqueo(request):
-    return None
-
-
-def do_actualizar_bloqueo(request):
-    return None
-
-
 def borrar_bloqueo(request):
-    return None
+    context = {}
+    context['title'] = "Desbloquear Visita"
+
+    if request.method == 'GET':
+        user = request.GET.get('identification')
+        if not id:
+            return redirect(listar_bloqueo)
+        else:
+            # Get the object
+            req = "{}{}".format(constantsURLs.BLACKLIST_GET, user)
+            response = requests.get(req)
+            if response.ok:
+                bloqueo = json.loads(response.text)
+                context['bloqueo'] = bloqueo
+                return render(request, 'SafeComAppFrontend/desbloquearVisita.html', context)
+            else:
+                context['error'] = "Ha ocurrido un error con el usuario {}".format(user)
+                return render(request, 'SafeComAppFrontend/desbloquearVisita.html', context)
+
+    return redirect(listar_bloqueo)
 
 
 def do_borrar_bloqueo(request):
-    return None
+    context = {}
+
+    if request.method == 'POST':
+
+        user = request.GET.get('identification')
+
+        try:
+            urldelete = '{}{}'.format(constantsURLs.BLACKLIST_DELETE, user)
+            response = requests.delete(urldelete)
+            if response.ok:
+                context['success'] = "Visita borrada con éxito"
+                return render(request, 'SafeComAppFrontend/listarBloqueos.html', context)
+            else:
+                # Clean data
+                txt = response.text.replace("[", "").replace("]", "")
+                errors = "Visita no ha sido registrada" if "already exists" in txt else ""
+                context['error'] = f"Algo ha salido mal: {errors}"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return redirect(listar_bloqueo)
