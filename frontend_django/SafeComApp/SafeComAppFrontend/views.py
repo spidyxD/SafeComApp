@@ -359,7 +359,7 @@ def do_borrar_vehiculo(request):
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Vehiculo borrado con éxito"
-                return render(request, 'SafeComAppFrontend/listarVehiculo.html', context)
+                return render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
