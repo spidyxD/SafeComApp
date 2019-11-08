@@ -8,43 +8,55 @@
 
     {% csrf_token %}
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
-        Buscar Persona
-    </button>
+    <div class="form-row">
+    <div class="form-group col-md-2">
+        <label for="visit_id">Numero de visita</label>
+        <input type="text" class="form-control" id="visit_id" name="visit_id"  value="{{visit.visit_id}}" required readonly>
+    </div>
+ </div>
+ <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="inputPlaca">Numero de placa</label>
+            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" value="{{visit.plate.plate}}" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputMarca">Marca</label>
+            <input class="form-control" id="inputMarca" name="inputMarca" type="text" value="{{visit.plate.brand}}" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputModelo">Modelo</label>
+            <input class="form-control" id="inputModelo" name="inputModelo" type="text" value="{{visit.plate.model}}" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputColor">Color</label>
+            <input class="form-control" id="inputColor" name="inputColor" type="text" value="{{visit.plate.color}}" required readonly>
+        </div>
+    </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputCedula">Cedula</label>
-            <input class="form-control" id="inputCedula" name="inputCedula" type="text"  readonly value="{{visit.plate.owner.identification}}">
+            <input class="form-control" id="inputCedula" name="inputCedula" type="text" value="{{visit.plate.owner.identification}}" required readonly>
         </div>
         <div class="form-group col-md-4">
-            <label for="inputNombre">Nombre del visitante</label>
-            <input class="form-control" id="inputNombre" name="inputNombre" type="text"  readonly value="{{visit.plate.owner.name}}">
-        </div>
-         <div class="form-group col-md-4">
-            <label for="inputPlate">Numero de placa</label>
-            <input class="form-control" id="inputPlate" name="inputPlate" type="text" readonly value="{{visit.plate.plate}}">
+            <label for="inputNombreCompleto">Nombre del visitante</label>
+            <input class="form-control" id="inputNombreCompleto" name="inputNombreCompleto" type="text" value="{{visit.plate.owner.name}}&nbsp;{{visit.plate.owner.first_lastname}}&nbsp;{{visit.plate.owner.second_lastname}}" required readonly>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputIncomingDate">Fecha de ingreso</label>
-            <input type="date" class="form-control" id="inputIncomingDate" name="inputIncomingDate"  readonly value="{{visit.incoming_date}}">
+            <input type="text" class="toFormatDatetime form-control" id="inputIncomingDate" name="inputIncomingDate"  value="{{visit.incoming_date}}" required readonly>
         </div>
-        <div class="form-group col-md-4">
-            <label for="inputOutgoingDate">Fecha de salida</label>
-            <input type="date" class="form-control" id="inputOutgoingDate" name="inputOutgoingDate"  readonly value="{{visit.outgoing_date}}">
-        </div>
-
     </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputReason">Motivo</label>
-            <textarea class="form-control" id="inputReason" name="inputReason" type="area" readonly value="{{visit.reason}}"></textarea>
+            <textarea class="form-control" id="inputReason" name="inputReason" required readonly> {{visit.reason}}</textarea>
         </div>
     </div>
-
     <button class="btn btn-secondary" type="submit">Eliminar</button>
 
 </form>

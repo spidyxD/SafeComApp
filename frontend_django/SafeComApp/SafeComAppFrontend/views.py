@@ -401,16 +401,12 @@ def do_registrar_visita(request):
 
     if request.method == 'POST':
 
-        fecha_ingreso = request.POST['inputIncomingDate']
-        fecha_ingresoHora = request.POST['inputIncomingDateHour']
         placa = request.POST['inputPlaca']
         motivo = request.POST['inputReason']
 
-        fecha_ingreso = f"{fecha_ingreso} {fecha_ingresoHora}"
 
         # Crear diccionario
         toSubmitData = {
-            "incoming_date": fecha_ingreso,
             "plate": placa,
             "reason": motivo
 
@@ -420,7 +416,7 @@ def do_registrar_visita(request):
             response = requests.post(constantsURLs.VISIT_CREATE, data=toSubmitData)
             responseLista = requests.get(constantsURLs.VISIT_LIST)
             visits = responseLista.json()  # returns a list of dictionaries
-            if response.ok:
+            if response.ok and responseLista.ok:
                 context['success'] = "Visita Registrada con éxito"
                 context['visits'] = visits
             else:
@@ -513,19 +509,19 @@ def borrar_visita(request):
     context['title'] = "Borrar Visita"
 
     if request.method == 'GET':
-        plate = request.GET.get('plate')
-        if not plate:
+        visit_id = request.GET.get('visit_id')
+        if not visit_id:
             return redirect(listar_visita)
         else:
             # Get the object
-            req = "{}{}".format(constantsURLs.VISIT_GET, plate)
+            req = "{}{}".format(constantsURLs.VISIT_GET, visit_id)
             response = requests.get(req)
             if response.ok:
                 visit = json.loads(response.text)
                 context['visit'] = visit
                 return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
             else:
-                context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
+                context['error'] = "Ha ocurrido un error  {}".format(visit_id)
                 return render(request, 'SafeComAppFrontend/borrarVisita.html', context)
 
     return redirect(listar_visita)
@@ -536,19 +532,16 @@ def do_borrar_visita(request):
 
     if request.method == 'POST':
 
-        placa = request.POST['inputPlate']
+        visit_id = request.POST['visit_id']
 
         try:
-            urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, placa)
+            urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, visit_id)
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Visita borrada con éxito"
                 return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
             else:
-                # Clean data
-                txt = response.text.replace("[", "").replace("]", "")
-                errors = "Visita no ha sido registrada" if "already exists" in txt else ""
-                context['error'] = f"Algo ha salido mal: {errors}"
+                context['error'] = f"Algo ha salido mal"
         except Exception as e:
             context['error'] = "Ha ocurrido un error"
 
