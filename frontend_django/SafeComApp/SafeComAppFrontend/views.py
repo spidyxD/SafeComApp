@@ -167,15 +167,15 @@ def do_borrar_persona(request):
             urldelete = '{}{}'.format(constantsURLs.PERSON_DELETE, cedula)
             response = requests.delete(urldelete)
             if response.ok:
-                context['success'] = "Persona borrada con éxito"
+                context['success'] = "Persona borrada con éxito!"
                 return render(request, 'SafeComAppFrontend/registrarPersona.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
-                errors = "Persona ya existe" if "already exists" in txt else ""
+                errors = "" if "already exists" in txt else "ERROR 404"
                 context['error'] = f"Algo ha salido mal: {errors}"
         except Exception as e:
-            context['error'] = "Ha ocurrido un error"
+            context['error'] = "Ha ocurrido un error!"
 
         return redirect(listar_persona)
 
@@ -358,15 +358,16 @@ def do_borrar_vehiculo(request):
             urldelete = '{}{}'.format(constantsURLs.VEHICLE_DELETE, placa)
             response = requests.delete(urldelete)
             if response.ok:
-                context['success'] = "Vehiculo borrado con éxito"
+                context['success'] = "Vehiculo borrado con éxito!"
                 return render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
-                errors = "Vehiculo ya existe" if "already exists" in txt else ""
+                errors = "" if "already exists" in txt else "ERROR 404"
                 context['error'] = f"Algo ha salido mal: {errors}"
+                return  render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
         except Exception as e:
-            context['error'] = "Ha ocurrido un error"
+            context['error'] = "Ha ocurrido un error!"
 
         return redirect(listar_vehiculo)
 
@@ -544,15 +545,16 @@ def do_borrar_visita(request):
             urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, user)
             response = requests.delete(urldelete)
             if response.ok:
-                context['success'] = "Visita borrada con éxito"
+                context['success'] = "Visita borrada con éxito!"
                 return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
-                errors = "Visita no ha sido registrada" if "already exists" in txt else ""
+                errors = "" if "already exists" in txt else "ERROR 404"
                 context['error'] = f"Algo ha salido mal: {errors}"
+                return render(request, 'SafeComAppFrontend/historialVisitas.html', context)
         except Exception as e:
-            context['error'] = "Ha ocurrido un error"
+            context['error'] = "Ha ocurrido un error!"
 
         return redirect(listar_visita)
 
@@ -685,20 +687,21 @@ def do_borrar_bloqueo(request):
 
     if request.method == 'POST':
 
-        user = request.GET.get('identification')
+        user = request.GET.get('inputCedula')
 
         try:
             urldelete = '{}{}'.format(constantsURLs.BLACKLIST_DELETE, user)
             response = requests.delete(urldelete)
             if response.ok:
-                context['success'] = "Visita borrada con éxito"
-                return render(request, 'SafeComAppFrontend/listarBloqueos.html', context)
+                context['success'] = "Visita desbloqueada con éxito!"
+                return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
-                errors = "Visita no ha sido registrada" if "already exists" in txt else ""
+                errors = "" if "already exists" in txt else "ERROR 404"
                 context['error'] = f"Algo ha salido mal: {errors}"
+                return render(request, 'SafeComAppFrontend/registrarBloqueo.html', context)
         except Exception as e:
-            context['error'] = "Ha ocurrido un error"
+            context['error'] = "Ha ocurrido un error!"
 
         return redirect(listar_bloqueo)

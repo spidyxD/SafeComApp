@@ -4,7 +4,7 @@
   {% block content %}
 <h1>Eliminar de Vehiculo</h1>
 
-<form action="{% url 'doborrarVehiculo' %}" method="DELETE">
+<form action="{% url 'doborrarVehiculo' %}" method="POST">
 
     {% csrf_token %}
      <div class="form-row">
