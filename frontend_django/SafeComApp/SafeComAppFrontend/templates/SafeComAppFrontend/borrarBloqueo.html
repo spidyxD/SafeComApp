@@ -2,46 +2,49 @@
 
 
   {% block content %}
-<h1>Registro Bloqueo</h1>
+<h1>Eliminar visita</h1>
 
-<form action="{% url 'doregistroBloqueo' %}" method="POST">
+<form action="{% url 'doborrarBloqueo' %}" method="POST">
 
     {% csrf_token %}
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
-        Buscar Persona
-    </button>
+        <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputBloqueo">Numero de bloqueo</label>
+            <input class="form-control" id="inputBloqueo" name="blacklist_id" type="text" value="{{bloqueo.blacklist_id}}" required readonly>
+        </div>
+    </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputCedula">Cedula</label>
-            <input class="form-control" id="inputCedula" name="inputCedula" type="text" required readonly>
+            <input class="form-control" id="inputCedula" name="inputCedula" type="text" value="{{bloqueo.visitor.identification}}" required readonly>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputName">Nombre</label>
-            <input class="form-control" id="inputName" name="inputName" type="text" required readonly>
+            <input class="form-control" id="inputName" name="inputName" type="text" value="{{bloqueo.visitor.name}}" required readonly>
         </div>
         <div class="form-group col-md-4">
             <label for="inputPrimerApe">Primer Apellido</label>
-            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" required readonly>
+            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" value="{{bloqueo.visitor.first_lastname}}" required readonly>
         </div>
         <div class="form-group col-md-4">
             <label for="inputSegundoApe">Segundo Apellido</label>
-            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" required readonly>
+            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" value="{{bloqueo.visitor.second_lastname}}" required readonly>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputName">Causa/Razon</label>
-            <textarea class="form-control" id="inputRazon" name="inputRazon" type="area" required></textarea>
+            <textarea class="form-control" id="inputRazon" name="inputRazon" type="area" required readonly>{{bloqueo.reason}}</textarea>
         </div>
     </div>
 
-    <button class="btn btn-secondary" type="submit">Registrar Bloqueo</button>
+    <button class="btn btn-secondary" type="submit">Eliminar</button>
 
 </form>
 <br>
@@ -106,7 +109,7 @@
                                         <td>{{person.first_lastname}}</td>
                                         <td>{{person.second_lastname}}</td>
                                         <td>
-                                            <button onclick="javascript:fillPersonData({{person.identification}})" type="button" class="btn btn-secondary" id="seleccionador">
+                                            <button onclick="javascript:fillPersonData('{{person.identification}}','{{person.name}} {{person.first_lastname}} {{person.second_lastname}}')" type="button" class="btn btn-secondary" id="seleccionador">
                                                 <span>Seleccionar</span>
                                             </button>
                                         </td>
@@ -134,8 +137,9 @@
      }
 </style>
 <script>
-    function fillPersonData(id){
+    function fillPersonData(id,name){
         $("#inputCedula").val(id);
+        $("#inputNombre").val(name);
     }
 
 </script>

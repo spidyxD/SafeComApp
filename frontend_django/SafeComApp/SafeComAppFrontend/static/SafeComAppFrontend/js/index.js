@@ -39,6 +39,9 @@ $(function () {
 
     $(document).on("click", "#seleccionador", function (e) {
         $("#inputCedula").val($(this).closest("tr").find("td:eq(0)").text());
+        $("#inputName").val($(this).closest("tr").find("td:eq(1)").text());
+        $("#inputPrimerApe").val($(this).closest("tr").find("td:eq(2)").text());
+        $("#inputSegundoApe").val($(this).closest("tr").find("td:eq(3)").text());
         $("#tablaPersonasModal").modal("hide");
     });
 

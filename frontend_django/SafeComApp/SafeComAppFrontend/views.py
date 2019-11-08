@@ -649,16 +649,104 @@ def listar_bloqueo(request):
 
 
 def editar_bloqueo(request):
-    return None
+    context = {}
+    context['title'] = "Editar Bloqueo"
+
+    if request.method == 'GET':
+        bloqueo_id = request.GET.get('visitor_id')
+        if not bloqueo_id:
+            return redirect(listar_bloqueo)
+        else:
+            # Get the object
+            req = "{}{}".format(constantsURLs.BLACKLIST_GET, bloqueo_id)
+            response = requests.get(req)
+            if response.ok:
+                bloqueo = json.loads(response.text)
+                context['bloqueo'] = bloqueo
+                return render(request, 'SafeComAppFrontend/editarBloqueo.html', context)
+            else:
+                context['error'] = "Ha ocurrido un error {}".format(bloqueo_id)
+                return render(request, 'SafeComAppFrontend/editarBloqueo.html', context)
+
+    return redirect(listar_visita)
 
 
 def do_actualizar_bloqueo(request):
-    return None
+    context = {}
+
+    if request.method == 'POST':
+
+        motivo = request.POST['inputRazon']
+        visitor_id = request.POST['inputCedula']
+
+        # Crear diccionario
+        toSubmitData = {
+            "reason": motivo
+        }
+
+        try:
+            urlput = '{}{}'.format(constantsURLs.BLACKLIST_UPDATE, visitor_id)
+            response = requests.put(urlput, data=toSubmitData)
+            req = "{}{}".format(constantsURLs.BLACKLIST_GET, visitor_id)
+            responseGet = requests.get(req)
+            if response.ok and responseGet.ok:
+                bloqueo = json.loads(responseGet.text)
+                context['success'] = "Bloqueo Actualizada con éxito"
+                context['bloqueo'] = bloqueo
+                return render(request, 'SafeComAppFrontend/editarBloqueo.html', context)
+            else:
+                # Clean data
+                txt = response.text.replace("[", "").replace("]", "")
+                errors = "Visita ya existe" if "already exists" in txt else ""
+                context['error'] = f"Algo ha salido mal: {errors}"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return redirect(listar_bloqueo)
 
 
 def borrar_bloqueo(request):
-    return None
+    context = {}
+    context['title'] = "Borrar Bloqueo"
+
+    if request.method == 'GET':
+        bloqueo_id = request.GET.get('visitor_id')
+        if not bloqueo_id:
+            return redirect(listar_bloqueo)
+        else:
+            # Get the object
+            req = "{}{}".format(constantsURLs.BLACKLIST_GET, bloqueo_id)
+            response = requests.get(req)
+            if response.ok:
+                bloqueo = json.loads(response.text)
+                context['bloqueo'] = bloqueo
+                return render(request, 'SafeComAppFrontend/borrarBloqueo.html', context)
+            else:
+                context['error'] = "Ha ocurrido un error {}".format(bloqueo_id)
+                return render(request, 'SafeComAppFrontend/borrarBloqueo.html', context)
+
+    return redirect(listar_visita)
 
 
 def do_borrar_bloqueo(request):
-    return None
+    context = {}
+
+    if request.method == 'POST':
+
+        visit_id = request.POST['inputCedula']
+
+        try:
+            urldelete = '{}{}'.format(constantsURLs.BLACKLIST_DELETE, visit_id)
+            response = requests.delete(urldelete)
+            response_lista = requests.get(constantsURLs.BLACKLIST_LIST)
+            bloqueos = response_lista.json()  # returns a list of dictionaries
+            if response.ok and response_lista.ok:
+                context['success'] = "Visita borrada con éxito"
+                context['bloqueos'] = bloqueos
+                return render(request, 'SafeComAppFrontend/listarBloqueos.html', context)
+            else:
+                context['error'] = f"Algo ha salido mal"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+
+        return redirect(listar_visita)

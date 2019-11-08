@@ -1,0 +1,72 @@
+{% extends "SafeComAppFrontend/index.html" %}
+
+
+  {% block content %}
+<h1>Editar de Vehiculo</h1>
+
+<form action="{% url 'doeditarBloqueo' %}" method="POST">
+
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputBloqueo">Numero de bloqueo</label>
+            <input class="form-control" id="inputBloqueo" name="blacklist_id" type="text" value="{{bloqueo.blacklist_id}}" required readonly>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputCedula">Cedula</label>
+            <input class="form-control" id="inputCedula" name="inputCedula" type="text" value="{{bloqueo.visitor.identification}}" required readonly>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputName">Nombre</label>
+            <input class="form-control" id="inputName" name="inputName" type="text" value="{{bloqueo.visitor.name}}" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputPrimerApe">Primer Apellido</label>
+            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" value="{{bloqueo.visitor.first_lastname}}" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputSegundoApe">Segundo Apellido</label>
+            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" value="{{bloqueo.visitor.second_lastname}}" required readonly>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputName">Causa/Razon</label>
+            <textarea class="form-control" id="inputRazon" name="inputRazon" type="area" required>{{bloqueo.reason}}</textarea>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary" type="submit">Editar</button>
+
+</form>
+<br>
+
+{% block messages %}
+    {% if success %}
+
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+           {{error}}
+        </div>
+
+    {% endif %}
+
+{% endblock %} <!-- END MESSAGES BLOCK -->
+
+
+
+{% endblock %}
