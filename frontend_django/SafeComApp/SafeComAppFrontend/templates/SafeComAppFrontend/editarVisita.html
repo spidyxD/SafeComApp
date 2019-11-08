@@ -8,40 +8,54 @@
 
     {% csrf_token %}
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
-        Buscar Persona
-    </button>
+
+ <div class="form-row">
+    <div class="form-group col-md-2">
+        <label for="visit_id">Numero de visita</label>
+        <input type="text" class="form-control" id="visit_id" name="visit_id"  value="{{visit.visit_id}}" required readonly>
+    </div>
+ </div>
+ <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="inputPlaca">Numero de placa</label>
+            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" value="{{visit.plate.plate}}" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputMarca">Marca</label>
+            <input class="form-control" id="inputMarca" name="inputMarca" type="text" value="{{visit.plate.brand}}" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputModelo">Modelo</label>
+            <input class="form-control" id="inputModelo" name="inputModelo" type="text" value="{{visit.plate.model}}" required readonly>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputColor">Color</label>
+            <input class="form-control" id="inputColor" name="inputColor" type="text" value="{{visit.plate.color}}" required readonly>
+        </div>
+    </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputCedula">Cedula</label>
-            <input class="form-control" id="inputCedula" name="inputCedula" type="text" required readonly value="{{visit.plate.owner.identification}}">
+            <input class="form-control" id="inputCedula" name="inputCedula" type="text" value="{{visit.plate.owner.identification}}" required readonly>
         </div>
         <div class="form-group col-md-4">
-            <label for="inputNombre">Nombre del visitante</label>
-            <input class="form-control" id="inputNombre" name="inputNombre" type="text" required readonly value="{{visit.plate.owner.name}}">
-        </div>
-         <div class="form-group col-md-4">
-            <label for="inputPlate">Numero de placa</label>
-            <input class="form-control" id="inputPlate" name="inputPlate" type="text" value="{{visit.plate.plate}}">
+            <label for="inputNombreCompleto">Nombre del visitante</label>
+            <input class="form-control" id="inputNombreCompleto" name="inputNombreCompleto" type="text" value="{{visit.plate.owner.name}}&nbsp;{{visit.plate.owner.first_lastname}}&nbsp;{{visit.plate.owner.second_lastname}}" required readonly>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputIncomingDate">Fecha de ingreso</label>
-            <input type="date" class="form-control" id="inputIncomingDate" name="inputIncomingDate"  required value="{{visit.incoming_date}}">
+            <input type="text" class="toFormatDatetime form-control" id="inputIncomingDate" name="inputIncomingDate"  value="{{visit.incoming_date}}" required readonly>
         </div>
-        <div class="form-group col-md-4">
-            <label for="inputOutgoingDate">Fecha de salida</label>
-            <input type="date" class="form-control" id="inputOutgoingDate" name="inputOutgoingDate"  required value="{{visit.outgoing_date}}">
-        </div>
-
     </div>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputReason">Motivo</label>
-            <textarea class="form-control" id="inputReason" name="inputReason" type="area" required value="{{visit.reason}}"></textarea>
+            <textarea class="form-control" id="inputReason" name="inputReason" required>{{visit.reason}}</textarea>
         </div>
     </div>
 
@@ -70,78 +84,4 @@
 {% endblock %} <!-- END MESSAGES BLOCK -->
 
 
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="tablaPersonasModal">
-    <div class="modal-dialog modal-bigger">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="col-12 modal-title text-center">
-                    Seleccionar Persona
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </h1>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid text-center">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="tablaPersonas">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Cédula</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Primer Apellido</th>
-                                        <th scope="col">Segundo Apellido</th>
-                                        <th scope="col">Accion</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for person in persons %}
-                                    <tr>
-                                        <td>{{person.identification}}</td>
-                                        <td>{{person.name}}</td>
-                                        <td>{{person.first_lastname}}</td>
-                                        <td>{{person.second_lastname}}</td>
-                                        <td>
-                                            <button onclick="javascript:fillPersonData('{{person.identification}}','{{person.name}} {{person.first_lastname}} {{person.second_lastname}}')" type="button" class="btn btn-secondary" id="seleccionador">
-                                                <span>Seleccionar</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <input id="isSubmit" type="hidden" value="false"/>
-                            <input id="cedulax" type="hidden"/>
-                            <input id="nombrex" type="hidden"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-     .modal-bigger{
-            max-width: 80% !important;
-     }
-</style>
-<script>
-    function fillPersonData(id,name){
-        $("#inputCedula").val(id);
-        $("#inputNombre").val(name);
-    }
-
-</script>
 {% endblock %} <!-- End content sobreescrito -->

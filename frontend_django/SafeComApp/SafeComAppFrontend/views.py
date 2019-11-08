@@ -440,28 +440,25 @@ def do_actualizar_visita(request):
 
     if request.method == 'POST':
 
-        fecha_ingreso = request.POST['inputIncomingDate']
-        fecha_salida = request.POST['inputOutgoingDate']
-        placa = request.POST['inputPlate']
         motivo = request.POST['inputReason']
+        visit_id = request.POST['visit_id']
 
 
         # Crear diccionario
-
         toSubmitData = {
-            "incoming_date": fecha_ingreso,
-            "outgoing_date": fecha_salida,
-            "plate": placa,
             "reason": motivo
         }
 
         try:
-            urlput = '{}{}'.format(constantsURLs.VISIT_UPDATE, placa)
+            urlput = '{}{}'.format(constantsURLs.VISIT_UPDATE, visit_id)
             response = requests.put(urlput, data=toSubmitData)
-            if response.ok:
+            req = "{}{}".format(constantsURLs.VISIT_GET, visit_id)
+            responseGet = requests.get(req)
+            if response.ok and responseGet.ok:
+                visit = json.loads(responseGet.text)
                 context['success'] = "Visita Actualizada con éxito"
-                context['visit'] = toSubmitData
-                return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
+                context['visit'] = visit
+                return render(request, 'SafeComAppFrontend/editarVisita.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
@@ -492,19 +489,19 @@ def editar_visita(request):
     context['title'] = "Editar Visita"
 
     if request.method == 'GET':
-        plate = request.GET.get('plate')
-        if not plate:
+        visit_id = request.GET.get('visit_id')
+        if not visit_id:
             return redirect(listar_visita)
         else:
             # Get the object
-            req = "{}{}".format(constantsURLs.VISIT_GET, plate)
+            req = "{}{}".format(constantsURLs.VISIT_GET, visit_id)
             response = requests.get(req)
             if response.ok:
                 visit = json.loads(response.text)
                 context['visit'] = visit
                 return render(request, 'SafeComAppFrontend/editarVisita.html', context)
             else:
-                context['error'] = "Ha ocurrido un error con la placa {}".format(plate)
+                context['error'] = "Ha ocurrido un error con la visita {}".format(visit_id)
                 return render(request, 'SafeComAppFrontend/editarVisita.html', context)
 
     return redirect(listar_visita)

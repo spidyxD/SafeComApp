@@ -28,10 +28,10 @@
                 <td>{{visit.reason}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarVisita' %}?plate={{visit.plate.plate}}">Actualizar</a>
+                    <a class="btn" href="{% url 'editarVisita' %}?visit_id={{visit.visit_id}}">Actualizar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarVisita' %}?plate={{visit.plate.plate}}">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarVisita' %}?visit_id={{visit.visit_id}}">Eliminar</a>
                   </button>
                 </td>
             </tr>

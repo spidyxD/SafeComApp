@@ -1,5 +1,5 @@
 /*
-* JS MAIN FILE
+* JS MAIN FILE TO IMPROVE JAJA
 * */
 
 function toFormatDatetime(date){
@@ -17,6 +17,18 @@ function mapDatesListVisits(){
             element.innerText = "Sin Salida";
         }else{
             element.innerText = toFormatDatetime(element.innerText);
+        }
+    });
+}
+
+function mapDatesListVisitsEdit(){
+    let elements = document.getElementsByClassName("toFormatDatetime");
+    elements = Array.from(elements); //convert to array
+    elements.forEach(function(element) {
+        if(element.value === "None"){
+            element.value = "Sin Salida";
+        }else{
+            element.value = toFormatDatetime(element.value);
         }
     });
 }
@@ -43,6 +55,7 @@ $(function () {
     });
 
     mapDatesListVisits();
+    mapDatesListVisitsEdit();
 
 });
 
