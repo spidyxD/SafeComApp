@@ -24,7 +24,10 @@
                 <td>{{bloqueo.reason}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarBloqueo' %}?identification={{bloqueo.visitor.identification}}">Desbloquear</a>
+                    <a class="btn" href="{% url 'editarBloqueo' %}?visitor_id={{bloqueo.visitor.identification}}">Editar</a>
+                  </button>
+                  <button type="button" class="btn btn-secondary">
+                    <a class="btn" href="{% url 'borrarBloqueo' %}?visitor_id={{bloqueo.visitor.identification}}">Eliminar</a>
                   </button>
                 </td>
             </tr>

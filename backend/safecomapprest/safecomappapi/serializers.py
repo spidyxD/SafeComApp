@@ -49,20 +49,17 @@ class RecordVisitSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
 
         plate = self._kwargs['data']['plate']
-        incoming_date = self._kwargs['data']['incoming_date']
+        #incoming_date = self._kwargs['data']['incoming_date']
         reason = validated_data.pop('reason')
 
         vehicle = Vehicle.objects.get(plate=plate)
-        record_visit_created = RecordVisit.objects.create(plate=vehicle, reason=reason, incoming_date=incoming_date)
+        record_visit_created = RecordVisit.objects.create(plate=vehicle, reason=reason)
 
         return record_visit_created
 
 
 class BlacklistSerializer(serializers.ModelSerializer):
     visitor = PersonSerializer(read_only=True)
-    #visitor = serializers.CharField(read_only=True, source='visitor.identification')
-    #visitor = serializers.PrimaryKeyRelatedField()
-
 
     class Meta:
         model = Blacklist

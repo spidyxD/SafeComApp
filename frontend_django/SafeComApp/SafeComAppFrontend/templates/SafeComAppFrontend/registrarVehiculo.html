@@ -8,13 +8,29 @@
 
     {% csrf_token %}
  <!-- Button trigger modal -->
-        <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
+      <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
             Buscar Persona
-        </button>
+      </button>
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="inputOwner">Propietario</label>
             <input class="form-control" id="inputOwner" name="inputOwner" type="text" required readonly>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputName">Nombre</label>
+            <input class="form-control" id="inputName" name="inputName" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputPrimerApe">Primer Apellido</label>
+            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputSegundoApe">Segundo Apellido</label>
+            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" required readonly>
         </div>
     </div>
 

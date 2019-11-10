@@ -21,6 +21,21 @@
 
     <div class="form-row">
         <div class="form-group col-md-4">
+            <label for="inputName">Nombre</label>
+            <input class="form-control" id="inputName" name="inputName" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputPrimerApe">Primer Apellido</label>
+            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputSegundoApe">Segundo Apellido</label>
+            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" required readonly>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
             <label for="inputRazon">Causa/Razon</label>
             <textarea class="form-control" id="inputRazon" name="inputRazon" type="area" required></textarea>
         </div>
@@ -49,11 +64,6 @@
     {% endif %}
 
 {% endblock %} <!-- END MESSAGES BLOCK -->
-
-
-
-
-
 
 
 <!-- Modal -->
@@ -90,7 +100,7 @@
                                         <td>{{person.first_lastname}}</td>
                                         <td>{{person.second_lastname}}</td>
                                         <td>
-                                            <button onclick="javascript:fillPersonData('{{person.identification}}','{{person.name}} {{person.first_lastname}} {{person.second_lastname}}')" type="button" class="btn btn-secondary" id="seleccionador">
+                                            <button type="button" class="btn btn-secondary" id="seleccionador">
                                                 <span>Seleccionar</span>
                                             </button>
                                         </td>
@@ -114,10 +124,5 @@
             max-width: 80% !important;
      }
 </style>
-<script>
-    function fillPersonData(id){
-        $("#inputCedula").val(id);
-    }
 
-</script>
 {% endblock %} <!-- End content sobreescrito -->

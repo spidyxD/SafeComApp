@@ -9,9 +9,11 @@
       <th scope="col">Fecha de ingreso</th>
       <th scope="col">Fecha de salida</th>
       <th scope="col">Placa del vehiculo</th>
-         <th scope="col">Identificacion</th>
-        <th scope="col">Nombre del visitante</th>
-        <th scope="col">Motivo</th>
+      <th scope="col">Modelo Vehiculo</th>
+      <th scope="col">Color Vehiculo</th>
+      <th scope="col">Identificacion</th>
+      <th scope="col">Nombre del visitante</th>
+      <th scope="col">Motivo</th>
 
 
       <th scope="col">Accion</th>
@@ -20,18 +22,20 @@
   <tbody>
             {% for visit in visits %}
             <tr>
-                <td><input type="date" id="inDate" onload="setDateformatIN('{{visit.incoming_date}}')"></td>
-                <td><input type="date" id="outDate" onload="setDateformatOUT ('{{visit.outgoing_date}}')"></td>
+                <td class="toFormatDatetime">{{visit.incoming_date}}</td>
+                <td class="toFormatDatetime">{{visit.outgoing_date}}</td>
                 <td>{{visit.plate.plate}}</td>
+                <td>{{visit.plate.model}}</td>
+                <td>{{visit.plate.color}}</td>
                 <td>{{visit.plate.owner.identification}}</td>
                 <td>{{visit.plate.owner.name}}</td>
                 <td>{{visit.reason}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarVisita' %}?plate={{visit.plate.plate}}">Actualizar</a>
+                    <a class="btn" href="{% url 'editarVisita' %}?visit_id={{visit.visit_id}}">Actualizar</a>
                   </button>
                   <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarVisita' %}?plate={{visit.plate.plate}}">Eliminar</a>
+                  <a class="btn" href="{% url 'borrarVisita' %}?visit_id={{visit.visit_id}}">Eliminar</a>
                   </button>
                 </td>
             </tr>

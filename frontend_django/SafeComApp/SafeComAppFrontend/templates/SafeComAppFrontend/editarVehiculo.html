@@ -15,6 +15,20 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
+            <label for="inputName">Nombre</label>
+            <input class="form-control" id="inputName" name="inputName" type="text" value="{{vehicle.owner.name}}" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputPrimerApe">Primer Apellido</label>
+            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" value="{{vehicle.owner.first_lastname}}" required readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputSegundoApe">Segundo Apellido</label>
+            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" value="{{vehicle.owner.second_lastname}}" required readonly>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
             <label for="inputPlate">Numero de placa</label>
             <input class="form-control" id="inputPlate" name="inputPlate" type="text" readonly value="{{vehicle.plate}}">
         </div>
