@@ -167,15 +167,15 @@ def do_borrar_persona(request):
             urldelete = '{}{}'.format(constantsURLs.PERSON_DELETE, cedula)
             response = requests.delete(urldelete)
             if response.ok:
-                context['success'] = "Persona borrada con éxito"
+                context['success'] = "Persona borrada con éxito!"
                 return render(request, 'SafeComAppFrontend/registrarPersona.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
-                errors = "Persona ya existe" if "already exists" in txt else ""
+                errors = "" if "already exists" in txt else "ERROR 404"
                 context['error'] = f"Algo ha salido mal: {errors}"
         except Exception as e:
-            context['error'] = "Ha ocurrido un error"
+            context['error'] = "Ha ocurrido un error!"
 
         return redirect(listar_persona)
 
@@ -232,7 +232,7 @@ def do_registrar_vehiculo(request):
         }
 
         try:
-            response = requests.post(constantsURLs.PERSON_CREATE, data=toSubmitData)
+            response = requests.post(constantsURLs.VEHICLE_CREATE, data=toSubmitData)
             if response.ok:
                 context['success'] = "Vehiculo Registrado con éxito"
             else:
@@ -352,21 +352,22 @@ def do_borrar_vehiculo(request):
 
     if request.method == 'POST':
 
-        placa = request.POST['inputPlaca']
+        placa = request.POST['inputPlate']
 
         try:
             urldelete = '{}{}'.format(constantsURLs.VEHICLE_DELETE, placa)
             response = requests.delete(urldelete)
             if response.ok:
-                context['success'] = "Vehiculo borrado con éxito"
+                context['success'] = "Vehiculo borrado con éxito!"
                 return render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
-                errors = "Vehiculo ya existe" if "already exists" in txt else ""
+                errors = "" if "already exists" in txt else "ERROR 404"
                 context['error'] = f"Algo ha salido mal: {errors}"
+                return  render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
         except Exception as e:
-            context['error'] = "Ha ocurrido un error"
+            context['error'] = "Ha ocurrido un error!"
 
         return redirect(listar_vehiculo)
 
@@ -404,12 +405,10 @@ def do_registrar_visita(request):
         placa = request.POST['inputPlaca']
         motivo = request.POST['inputReason']
 
-
         # Crear diccionario
         toSubmitData = {
             "plate": placa,
             "reason": motivo
-
         }
 
         try:

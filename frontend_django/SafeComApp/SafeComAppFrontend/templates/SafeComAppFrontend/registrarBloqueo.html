@@ -36,7 +36,7 @@
 
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="inputName">Causa/Razon</label>
+            <label for="inputRazon">Causa/Razon</label>
             <textarea class="form-control" id="inputRazon" name="inputRazon" type="area" required></textarea>
         </div>
     </div>
@@ -66,15 +66,9 @@
 {% endblock %} <!-- END MESSAGES BLOCK -->
 
 
-
-
-
-
-
 <!-- Modal -->
-<div class="modal fade" id="tablaPersonasModal">
-    <div class="modal-dialog modal-bigger">
-        <div class="modal-content">
+ <div id="tablaPersonasModal" class="modal">
+     <div class="modal-content">
             <div class="modal-header">
                 <h1 class="col-12 modal-title text-center">
                     Seleccionar Persona
@@ -106,7 +100,7 @@
                                         <td>{{person.first_lastname}}</td>
                                         <td>{{person.second_lastname}}</td>
                                         <td>
-                                            <button onclick="javascript:fillPersonData({{person.identification}})" type="button" class="btn btn-secondary" id="seleccionador">
+                                            <button type="button" class="btn btn-secondary" id="seleccionador">
                                                 <span>Seleccionar</span>
                                             </button>
                                         </td>
@@ -122,21 +116,13 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-            </div>
         </div>
-    </div>
-</div>
+  </div>
 
 <style>
      .modal-bigger{
             max-width: 80% !important;
      }
 </style>
-<script>
-    function fillPersonData(id){
-        $("#inputCedula").val(id);
-    }
 
-</script>
 {% endblock %} <!-- End content sobreescrito -->

@@ -10,6 +10,8 @@
       <th scope="col">Marca del vehiculo</th>
       <th scope="col">Modelo</th>
       <th scope="col">Color</th>
+      <th scope="col">Cedula Dueño</th>
+      <th scope="col">Nombre Dueño</th>
       <th scope="col">Accion</th>
     </tr>
   </thead>
@@ -20,6 +22,8 @@
                 <td>{{vehicle.brand}}</td>
                 <td>{{vehicle.model}}</td>
                 <td>{{vehicle.color}}</td>
+                <td>{{vehicle.owner.identification}}</td>
+                <td>{{vehicle.owner.name}}</td>
                 <td>
                   <button type="button" class="btn btn-secondary">
                     <a class="btn" href="{% url 'editarVehiculo' %}?plate={{vehicle.plate}}">Actualizar</a>

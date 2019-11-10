@@ -1,0 +1,57 @@
+{% extends "SafeComAppFrontend/index.html" %}
+
+
+  {% block content %}
+<h1>Desbloquear visita</h1>
+
+<form action="{% url 'doborrarBloqueo' %}" method="POST">
+
+    {% csrf_token %}
+
+    <!-- Button trigger modal -->
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputCedula">Cedula</label>
+            <input class="form-control" id="inputCedula" name="inputCedula" type="text" required readonly value="{{bloqueo.visitor.identification}}">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputRazon">Causa/Razon</label>
+            <textarea class="form-control" id="inputRazon" name="inputRazon" type="area" required readonly>{{bloqueo.reason}}</textarea>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary" type="submit">Desbloquear</button>
+
+</form>
+<br>
+
+{% block messages %}
+    {% if success %}
+
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+           {{error}}
+        </div>
+
+    {% endif %}
+
+{% endblock %} <!-- END MESSAGES BLOCK -->
+
+
+<style>
+     .modal-bigger{
+            max-width: 80% !important;
+     }
+</style>
+
+{% endblock %} <!-- End content sobreescrito -->

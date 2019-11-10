@@ -16,9 +16,10 @@
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
-  <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link type="text/css" href="{% static "SafeComAppFrontend/cs/materialize.min.cs" %}" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="{% static "SafeComAppFrontend/css/common.css" %}">
- <script src="{% static "SafeComAppFrontend/js/jquery.js" %}"></script>
+    <script src="{% static "SafeComAppFrontend/js/jquery.js" %}"></script>
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -26,97 +27,138 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <script src="{% static "SafeComAppFrontend/js/index.js" %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static "SafeComAppFrontend/css/common.css" %}">
+    <link rel="manifest" href="/manifest.json" />
 
-  <script src="{% static "SafeComAppFrontend/js/index.js" %}"></script>
+
+
+
+
 
 </head>
 
-<body>
+<body class="grey lighten-4">
+    <!-- top nav -->
+    <nav class="z-depth-0">
+      <div class="nav-wrapper container">
+        <a href="/app/">SafeCom</a>
+        <span class="right grey-text text-darken-1">
+          <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+        </span>
+      </div>
+    </nav>
 
-  <!-- Navbar content -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/app/">Inicio</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownPersona" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Personas
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownPersona">
-            <a class="dropdown-item" href="{% url 'registroPersona' %}">Registrar Personas</a>
-            <a class="dropdown-item" href="{% url 'listarPersona' %}">Consultar Personas</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownVehicle" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Vehiculos
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
-            <a class="dropdown-item" href="{% url 'registrarVehiculo' %}">Registrar Vehiculo</a>
-            <a class="dropdown-item" href="{% url 'listarVehiculo' %}">Consultar Vehiculos</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownVisitas" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Visitas
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownVisitas">
-            <a class="dropdown-item" href="{% url 'registroVisita' %}">Registrar Visitas</a>
-            <a class="dropdown-item" href="{% url 'listarVisita' %}">Consultar Visitas</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownBloqueos" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Lista Negra
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownVisitas">
-            <a class="dropdown-item" href="{% url 'registroBloqueo' %}">Registrar bloqueo</a>
-            <a class="dropdown-item" href="{% url 'listarBloqueados' %}">Consultar bloqueos</a>
-          </div>
-        </li>
-      </ul>
+    <!-- side nav -->
+    <div id="side-menu" class="sidenav side-menu">
+      <ul class="collapsible collapsible-accordion">
+		<li>
+		  <div class="collapsible-header" tabindex="0"><i class="material-icons">person</i>Personas</div>
+		  <div class="collapsible-body">
+				<ul class="collection">
+				  <li class="collection-item"> <a class="dropdown-item" href="{% url 'registroPersona' %}">Registrar Personas</a></li>
+				  <li class="collection-item"><a class="dropdown-item" href="{% url 'listarPersona' %}">Consultar Personas</a></li>
+				</ul>
+		  </div>
+		</li>
+		<li>
+		  <div class="collapsible-header" tabindex="0"><i class="material-icons">motorcycle</i>Vehiculos</div>
+		  <div class="collapsible-body">
+				<ul class="collection">
+				  <li class="collection-item"><a class="dropdown-item" href="{% url 'registrarVehiculo' %}">Registrar Vehiculo</a></li>
+				  <li class="collection-item"> <a class="dropdown-item" href="{% url 'listarVehiculo' %}">Consultar Vehiculos</a></li>
+				</ul>
+		  </div>
+		</li>
+		<li>
+		  <div class="collapsible-header" tabindex="0"><i class="material-icons">not_interested</i>Bloqueos</div>
+		  <div class="collapsible-body">
+				<ul class="collection">
+				  <li class="collection-item"><a class="dropdown-item" href="{% url 'registroBloqueo' %}">Registrar bloqueo</a></li>
+				  <li class="collection-item"> <a class="dropdown-item" href="{% url 'listarBloqueados' %}">Consultar bloqueos</a></li>
+				</ul>
+		  </div>
+		</li>
+		<li>
+		  <div class="collapsible-header"><i class="material-icons">query_builder</i>Historial de visitas</div>
+		  <div class="collapsible-body">
+				<ul class="collection">
+				  <li class="collection-item"> <a class="dropdown-item" href="{% url 'registroVisita' %}">Registrar Visitas</a></li>
+				  <li class="collection-item"> <a class="dropdown-item" href="{% url 'listarVisita' %}">Consultar Visitas</a></li>
+				</ul>
+		  </div>
+		</li>
+  </ul>
     </div>
-  </nav>
-<div class="container">
-     {% block content %}
-{% block messages %}
-    {% if success %}
+	<div class="container">
+		 {% block content %}
+	{% block messages %}
+		{% if success %}
 
-        <div class="alert alert-success" role="alert">
-            {{success}}
-        </div>
+			<div class="alert alert-success" role="alert">
+				{{success}}
+			</div>
 
-    {% endif %}
+		{% endif %}
 
-    {% if error %}
+		{% if error %}
 
-        <div class="alert alert-danger" role="alert">
-           {{error}}
-        </div>
+			<div class="alert alert-danger" role="alert">
+			   {{error}}
+			</div>
 
-    {% endif %}
+		{% endif %}
 
-{% endblock %} <!-- END MESSAGES BLOCK -->
-
-
-  <!-- SOBRECARGAR EL CONTENIDO DE ESTA SECCION EN LAS DEMAS VISTAS -->
-    <h1>Dashboard Safe Community </h1>
-
-        <button type="button" class="btn btn-secondary">
-        <a class="btn" href="{% url 'doExitVisita' %}?visitId=3">Dar salida</a>
-      </button>
-
-    {% endblock %}
+	{% endblock %} <!-- END MESSAGES BLOCK -->
 
 
+	  <!-- SOBRECARGAR EL CONTENIDO DE ESTA SECCION EN LAS DEMAS VISTAS -->
+		<h1>Dashboard Safe Community </h1>
 
-  </div> <!-- END Container -->
+			<button type="button" class="btn btn-secondary">
+			<a class="btn" href="{% url 'doExitVisita' %}?visitId=3">Dar salida</a>
+		  </button>
+
+		{% endblock %}
 
 
-</body>
+
+	  </div> <!-- END Container -->
+
+    <div class="center">
+      <a
+        class="btn-floating btn-small btn-large add-btn sidenav-trigger"
+        data-target="side-form"
+      >
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+
+    <!-- add recipe side nav -->
+    <div id="side-form" class="sidenav side-form">
+      <form class="add-recipe container section">
+
+      </form>
+    </div>
+    <script src="{% static "SafeComAppFrontend/js/app.js" %}"></script>
+    <script src="{% static "SafeComAppFrontend/js/ui.js" %}"></script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems, options);
+          });
+
+          // Or with jQuery
+
+          $(document).ready(function(){
+            $('.collapsible').collapsible();
+          });
+    </script>
+  </body>
 
 </html>
+
+
