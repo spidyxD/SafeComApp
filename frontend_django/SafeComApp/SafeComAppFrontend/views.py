@@ -122,12 +122,14 @@ def do_actualizar_persona(request):
             if response.ok:
                 context['success'] = "Persona Actualizada con éxito"
                 context['person'] = toSubmitData
+                context['title'] = "Editar Persona"
                 return render(request, 'SafeComAppFrontend/editarPersona.html', context)
             else:
                 # Clean data
                 txt = response.text.replace("[", "").replace("]", "")
                 errors = "Persona ya existe" if "already exists" in txt else ""
                 context['error'] = f"Algo ha salido mal: {errors}"
+                context['title'] = "Editar Persona"
         except Exception as e:
             context['error'] = "Ha ocurrido un error"
 
@@ -151,6 +153,7 @@ def borrar_persona(request):
                 return render(request, 'SafeComAppFrontend/borrarPersona.html', context)
             else:
                 context['error'] = "Ha ocurrido un error con cedula {}".format(identification)
+                context['title'] = "Borrar Persona"
                 return render(request, 'SafeComAppFrontend/borrarPersona.html', context)
 
     return redirect(listar_persona)
@@ -168,6 +171,7 @@ def do_borrar_persona(request):
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Persona borrada con éxito!"
+                context['title'] = "Registrar Persona"
                 return render(request, 'SafeComAppFrontend/registrarPersona.html', context)
             else:
                 # Clean data
@@ -274,6 +278,7 @@ def do_actualizar_vehiculo(request):
             if response.ok:
                 context['success'] = "Vehiculo Actualizado con éxito"
                 context['vehicle'] = toSubmitData
+                context['title'] = "Editar Vehiculo"
                 return render(request, 'SafeComAppFrontend/editarVehiculo.html', context)
             else:
                 # Clean data
@@ -359,6 +364,7 @@ def do_borrar_vehiculo(request):
             response = requests.delete(urldelete)
             if response.ok:
                 context['success'] = "Vehiculo borrado con éxito!"
+                context['title'] = "Registrar Vehiculo"
                 return render(request, 'SafeComAppFrontend/registrarVehiculo.html', context)
             else:
                 # Clean data
@@ -453,6 +459,7 @@ def do_actualizar_visita(request):
                 visit = json.loads(responseGet.text)
                 context['success'] = "Visita Actualizada con éxito"
                 context['visit'] = visit
+                context['title'] = "Editar Visita"
                 return render(request, 'SafeComAppFrontend/editarVisita.html', context)
             else:
                 # Clean data
@@ -536,8 +543,11 @@ def do_borrar_visita(request):
         try:
             urldelete = '{}{}'.format(constantsURLs.VISIT_DELETE, visit_id)
             response = requests.delete(urldelete)
-            if response.ok:
+            response_lista = requests.get(constantsURLs.VISIT_LIST)
+            if response.ok and response_lista.ok:
+                visits = response_lista.json()  # returns a list of dictionaries
                 context['success'] = "Visita borrada con éxito"
+                context['visits'] = visits
                 return render(request, 'SafeComAppFrontend/listarVisitas.html', context)
             else:
                 context['error'] = f"Algo ha salido mal"

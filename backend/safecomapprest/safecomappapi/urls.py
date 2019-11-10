@@ -18,7 +18,7 @@ urlpatterns = [
     path('vehicle/create', views.VehicleCreate.as_view()),
     path('vehicle/<str:pk>/', views.VehicleUpdate.as_view()),
     path('vehicle/update/<str:pk>', views.VehicleUpdate.as_view()),
-    path('vehicle/delete/<str:pk>', views.VehicleDestroy.as_view()),
+    path('vehicle/delete/<str:plate>', views.VehicleDestroy.as_view()),
     path('vehicle/visits/<str:pk>', views.VehicleVisits.as_view()),
     #####################################
     # RECORDVISIT

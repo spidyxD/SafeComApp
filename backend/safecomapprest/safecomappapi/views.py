@@ -137,10 +137,14 @@ class VehicleUpdate(generics.RetrieveUpdateAPIView):
 
 class VehicleDestroy(generics.DestroyAPIView):
     serializer_class = VehicleSerializer
+    lookup_field = 'plate'
 
     def get_queryset(self):
-        queryset = Vehicle.objects.filter(plate=self.kwargs['pk'])
+        queryset = Vehicle.objects.filter(plate=self.kwargs['plate'])
         return queryset
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
     def preform_destroy(self, instance):
         serializer = VehicleSerializer(data=self.get_queryset())
