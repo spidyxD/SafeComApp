@@ -25,12 +25,8 @@
                 <td>{{vehicle.owner.identification}}</td>
                 <td>{{vehicle.owner.name}}</td>
                 <td>
-                  <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarVehiculo' %}?plate={{vehicle.plate}}">Actualizar</a>
-                  </button>
-                  <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarVehiculo' %}?plate={{vehicle.plate}}">Eliminar</a>
-                  </button>
+                  <a class="waves-effect waves-light btn" href="{% url 'editarVehiculo' %}?plate={{vehicle.plate}}">Actualizar</a>
+                  <a class="waves-effect waves-light btn" href="{% url 'borrarVehiculo' %}?plate={{vehicle.plate}}">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}

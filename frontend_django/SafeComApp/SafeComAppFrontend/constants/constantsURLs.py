@@ -26,6 +26,7 @@ VISIT_UPDATE = "{}/{}".format(BASEURL, "recordVisit/update/")
 VISIT_DELETE = "{}/{}".format(BASEURL, "recordVisit/delete/")
 VISIT_VISITS = "{}/{}".format(BASEURL, "recordVisit/visits/")
 VISIT_EXIT = "{}/{}".format(BASEURL, "recordVisit/exit/")
+VISIT_NOEXITLIST = "{}/{}".format(BASEURL, "persons/noExit")
 # ##################################
 # BLACK LIST
 BLACKLIST_CREATE = "{}/{}".format(BASEURL, "blacklist/create")

@@ -13,9 +13,21 @@ from .constants import constantsURLs
 
 def home(request):
     """TO HOME PAGE"""
-    # With context, we can send variables to templates
-    context = {'title': 'Inicio'}
-    return render(request, "SafeComAppFrontend/index.html", context)
+    context = {}
+    context["title"] = "Inicio"
+    if request.method == 'GET':
+        try:
+            response = requests.get(constantsURLs.VISIT_NOEXITLIST)
+            if response.ok:
+
+                visits = response.json()  # returns a list of dictionaries
+                context["visits"] = visits
+                return render(request, 'SafeComAppFrontend/index.html', context)
+            else:
+                context['error'] = "Algo ha salido mal al dar salida"
+        except Exception as e:
+            context['error'] = "Ha ocurrido un error"
+        return render(request, 'SafeComAppFrontend/index.html', context)
 
 
 ##########################################################
@@ -576,8 +588,12 @@ def do_exit_visita(request):
         try:
             urlExit = '{}{}'.format(constantsURLs.VISIT_EXIT, visit_id)
             response = requests.patch(urlExit, data=toSubmitData)
-            if response.ok:
+            responseVisitas = requests.get(constantsURLs.VISIT_NOEXITLIST)
+            if response.ok and responseVisitas.ok:
                 context['success'] = "Salida de visita con éxito"
+                
+                visits = responseVisitas.json()  # returns a list of dictionaries
+                context["visits"] = visits
                 return render(request, 'SafeComAppFrontend/index.html', context)
             else:
                 context['error'] = "Algo ha salido mal al dar salida"

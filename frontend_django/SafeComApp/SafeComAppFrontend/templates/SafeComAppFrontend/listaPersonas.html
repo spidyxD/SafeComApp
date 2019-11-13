@@ -21,12 +21,8 @@
                 <td>{{person.first_lastname}}</td>
                 <td>{{person.second_lastname}}</td>
                 <td>
-                  <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarPersona' %}?identification={{person.identification}}">Editar</a>
-                  </button>
-                  <button type="button" class="btn btn-secondary">
-                  <a class="btn" href="{% url 'borrarPersona' %}?identification={{person.identification}}">Eliminar</a>
-                  </button>
+                  <a class="waves-effect waves-light btn" href="{% url 'editarPersona' %}?identification={{person.identification}}">Editar</a>
+                  <a class="waves-effect waves-light btn" href="{% url 'borrarPersona' %}?identification={{person.identification}}">Eliminar</a>
                 </td>
             </tr>
         {% endfor %}

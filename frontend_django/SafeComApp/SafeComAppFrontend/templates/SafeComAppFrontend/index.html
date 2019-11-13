@@ -117,10 +117,41 @@
 
 	  <!-- SOBRECARGAR EL CONTENIDO DE ESTA SECCION EN LAS DEMAS VISTAS -->
 		<h1>Dashboard Safe Community </h1>
-
-			<button type="button" class="btn btn-secondary">
+		<!--
+		<button type="button" class="btn btn-secondary">
 			<a class="btn" href="{% url 'doExitVisita' %}?visitId=3">Dar salida</a>
-		  </button>
+		</button>
+		-->
+
+		 <table class="table table-striped toDataTable">
+            <thead class="thead-dark">
+             <tr>
+                 <th scope="col">Nombre completo</th>
+                <th scope="col">Identificacion</th>
+                <th scope="col">Placa</th>
+                <th scope="col">Modelo Carro</th>
+                <th scope="col">Fecha de entrada</th>
+                 <th scope="col">Acciones</th>
+
+            </tr>
+            </thead>
+                <tbody>
+                {% for visit in visits %}
+                <tr>
+                    <td>{{visit.plate.owner.name}} &nbsp; {{visit.plate.owner.first_lastname}} &nbsp; {{visit.plate.owner.second_lastname}}</td>
+                    <td>{{visit.plate.owner.identification}}</td>
+                    <td>{{visit.plate.plate}}</td>
+                    <td>{{visit.plate.model}}</td>
+                    <td class="toFormatDatetime">{{visit.incoming_date}}</td>
+                    <td>
+
+                        <a class="waves-effect waves-light btn" href="{% url 'doExitVisita' %}?visitId={{visit.visit_id}}">Dar salida</a>
+
+                    </td>
+                 </tr>
+                {% endfor %}
+                </tbody>
+        </table>
 
 		{% endblock %}
 
@@ -138,10 +169,30 @@
     </div>
 
     <!-- add recipe side nav -->
-    <div id="side-form" class="sidenav side-form">
-      <form class="add-recipe container section">
 
-      </form>
+    <div id="side-form" class="sidenav side-form">
+        <div class="container" >
+            <form action="{% url 'doregistroVisita' %}" method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <label for="inputPlaca">Numero de placa</label>
+                        <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <label for="inputReason">Motivo</label>
+                        <textarea class="form-control" id="inputReason" name="inputReason" required></textarea>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" type="submit">Registrar Visita</button>
+            </form>
+        </div>
     </div>
     <script src="{% static "SafeComAppFrontend/js/app.js" %}"></script>
     <script src="{% static "SafeComAppFrontend/js/ui.js" %}"></script>

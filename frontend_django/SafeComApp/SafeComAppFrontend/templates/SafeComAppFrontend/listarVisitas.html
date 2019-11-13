@@ -31,12 +31,8 @@
                 <td>{{visit.plate.owner.name}}</td>
                 <td>{{visit.reason}}</td>
                 <td>
-                  <button type="button" class="btn btn-secondary">
-                    <a class="btn" href="{% url 'editarVisita' %}?visit_id={{visit.visit_id}}">Actualizar</a>
-                  </button>
-                  <button type="button" class="btn btn-secondary">
+                  <a class="btn" href="{% url 'editarVisita' %}?visit_id={{visit.visit_id}}">Actualizar</a>
                   <a class="btn" href="{% url 'borrarVisita' %}?visit_id={{visit.visit_id}}">Eliminar</a>
-                  </button>
                 </td>
             </tr>
             {% endfor %}
@@ -67,12 +63,12 @@
 <script>
     function setDateformatIN(date){
         var formatDate  = new Date(date);
-        document.getElementById("inDate").value = formatDate)
+        document.getElementById("inDate").value = formatDate;
     }
 
     function setDateformatOUT(date){
         var formatDate  =  new Date(date);
-        document.getElementById("outDate").value = formatDate)
+        document.getElementById("outDate").value = formatDate;
     }
 
 </script>>
