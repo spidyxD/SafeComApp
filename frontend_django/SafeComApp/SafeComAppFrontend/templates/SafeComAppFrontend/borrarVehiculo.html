@@ -2,58 +2,71 @@
 
 
   {% block content %}
-<h1>Eliminar de Vehiculo</h1>
+<div class="container-fluid  container-pa" >
+    <div class="row ">
+        <div class="col-md-12 abs-center ">
+            <div class="well well-sm form-bg ">
+                <form action="{% url 'doborrarVehiculo' %}" method="DELETE">
+                    <fieldset>
+                            <legend class="text-center header">Eliminar Vehiculos</legend>
 
-<form action="{% url 'doborrarVehiculo' %}" method="DELETE">
+                                {% csrf_token %}
 
-    {% csrf_token %}
+                                 <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputPlaca" class="labels-style">Numero de placa</label>
+                                        <input class="form-control inputs-style" id="inputPlaca" name="inputPlaca" type="text" readonly value="{{vehicle.plate}}">
+                                    </div>
+                                </div>
 
-     <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputPlaca">Numero de placa</label>
-            <input class="form-control" id="inputPlaca" name="inputPlaca" type="text" readonly value="{{vehicle.plate}}">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputMarca" class="labels-style">Marca</label>
+                                        <input class="form-control inputs-style" id="inputMarca" name="inputMarca" type="text" readonly value="{{vehicle.brand}}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputModelo" class="labels-style">Modelo</label>
+                                        <input class="form-control inputs-style" id="inputModelo" name="inputModelo" type="text" readonly value="{{vehicle.model}}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputColor" class="labels-style">Color</label>
+                                        <input class="form-control inputs-style" id="inputColor" name="inputColor" type="text" readonly value="{{vehicle.color}}">
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-secondary" type="submit">Eliminar</button>
+                    </fieldset>
+
+                </form>
+            </div>
         </div>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputMarca">Marca</label>
-            <input class="form-control" id="inputMarca" name="inputMarca" type="text" readonly value="{{vehicle.brand}}">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputModelo">Modelo</label>
-            <input class="form-control" id="inputModelo" name="inputModelo" type="text" readonly value="{{vehicle.model}}">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputColor">Color</label>
-            <input class="form-control" id="inputColor" name="inputColor" type="text" readonly value="{{vehicle.color}}">
-        </div>
-    </div>
-
-    <button class="btn btn-secondary" type="submit">Eliminar</button>
-
-</form>
 <br>
+    <div class="row text-center ">
+        <div class="col-md-12"   style="align-items: center;justify-content: center;width: 450px">
 
-{% block messages %}
-    {% if success %}
+        {% block messages %}
+            {% if success %}
 
-        <div class="alert alert-success" role="alert">
-            {{success}}
+                <div class="alert alert-success" role="alert">
+                    {{success}}
+                </div>
+
+            {% endif %}
+
+            {% if error %}
+
+                <div class="alert alert-danger" role="alert">
+                   {{error}}
+                </div>
+
+            {% endif %}
+
+        {% endblock %} <!-- END MESSAGES BLOCK -->
+
+
+
+        {% endblock %}
         </div>
-
-    {% endif %}
-
-    {% if error %}
-
-        <div class="alert alert-danger" role="alert">
-           {{error}}
-        </div>
-
-    {% endif %}
-
-{% endblock %} <!-- END MESSAGES BLOCK -->
-
-
-
-{% endblock %}
+    </div>
+</div>

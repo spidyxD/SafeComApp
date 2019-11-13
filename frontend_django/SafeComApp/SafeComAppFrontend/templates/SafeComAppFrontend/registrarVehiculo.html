@@ -2,131 +2,151 @@
 
 
   {% block content %}
-<h1>Registro de Vehiculo</h1>
+<div class="container-fluid  container-pa" >
+    <div class="row ">
+        <div class="col-md-12 abs-center ">
+            <div class="well well-sm form-bg ">
+                <form action="{% url 'doRegistroVehiculo' %}" method="POST">
+                    <fieldset>
+                            <legend class="text-center header">Registro de Vehiculo</legend>
 
-<form action="{% url 'doRegistroVehiculo' %}" method="POST">
+                            {% csrf_token %}
+                         <!-- Button trigger modal -->
 
-    {% csrf_token %}
- <!-- Button trigger modal -->
-        <button  type="button" class="btn btn-secondary" data-toggle="modal" data-target="#tablaPersonasModal">
-            Buscar Persona
-        </button>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputCedula">Propietario</label>
-            <input class="form-control" id="inputCedula" name="inputCedula" type="text" required readonly>
-        </div>
-    </div>
-
-    <div class="form-row">
-         <div class="form-group col-md-4">
-            <label for="inputPlate">Numero de placa</label>
-            <input class="form-control" id="inputPlate" name="inputPlate" type="text" required>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputBrand">Marca</label>
-            <input class="form-control" id="inputBrand" name="inputBrand" type="text" required>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputModel">Modelo</label>
-            <input class="form-control" id="inputModel" name="inputModel" type="text" required>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputColor">Color</label>
-            <input class="form-control" id="inputColor" name="inputColor" type="text" required>
-        </div>
-    </div>
-
-    <button class="btn btn-secondary" type="submit">Registrar</button>
-
-</form>
-<br>
-
-{% block messages %}
-    {% if success %}
-
-        <div class="alert alert-success" role="alert">
-            {{success}}
-        </div>
-
-    {% endif %}
-
-    {% if error %}
-
-        <div class="alert alert-danger" role="alert">
-           {{error}}
-        </div>
-
-    {% endif %}
-
-{% endblock %} <!-- END MESSAGES BLOCK -->
-
-<!-- Modal -->
-<div class="modal fade" id="tablaPersonasModal">
-    <div class="modal-dialog modal-bigger">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="col-12 modal-title text-center">
-                    Seleccionar Persona
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </h1>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid text-center">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="tablaPersonas">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Cédula</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Primer Apellido</th>
-                                        <th scope="col">Segundo Apellido</th>
-                                        <th scope="col">Accion</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for person in persons %}
-                                    <tr>
-                                        <td>{{person.identification}}</td>
-                                        <td>{{person.name}}</td>
-                                        <td>{{person.first_lastname}}</td>
-                                        <td>{{person.second_lastname}}</td>
-                                        <td>
-                                            <button onclick="javascript:fillPersonData({{person.identification}})" type="button" class="btn btn-secondary" id="seleccionador">
-                                                <span>Seleccionar</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                            <div class="form-row form-padding">
+                                <div class="form-group col-md-4">
+                                    <label for="inputCedula" class="labels-style">Propietario</label>
+                                    <input class="form-control inputs-style" id="inputCedula" name="inputCedula" type="text" required readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for=""> . . .</label>
+                                    <button  type="button" class="btn btn-secondary form-control search-button "   data-toggle="modal" data-target="#tablaPersonasModal">
+                                            Buscar Persona
+                                    </button>
+                                </div>
                             </div>
-                            <input id="isSubmit" type="hidden" value="false"/>
-                            <input id="cedulax" type="hidden"/>
-                            <input id="nombrex" type="hidden"/>
+
+
+
+                            <div class="form-row form-padding">
+                                 <div class="form-group col-md-4">
+                                    <label for="inputPlate" class="labels-style">Numero de placa</label>
+                                    <input class="form-control inputs-style" id="inputPlate" name="inputPlate" type="text" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputBrand" class="labels-style">Marca</label>
+                                    <input class="form-control inputs-style" id="inputBrand" name="inputBrand" type="text" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputModel" class="labels-style">Modelo</label>
+                                    <input class="form-control inputs-style" id="inputModel" name="inputModel" type="text" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputColor" class="labels-style">Color</label>
+                                    <input class="form-control inputs-style" id="inputColor" name="inputColor" type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-row form-padding">
+                                <div class="form-group col-md-4">
+                                    <button class="btn btn-secondary form-group" type="submit">Registrar</button>
+                                </div>
+                            </div>
+                     </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row text-center ">
+        <div class="col-md-12"   style="align-items: center;justify-content: center;width: 450px">
+                {% block messages %}
+                    {% if success %}
+
+                        <div class="alert alert-success" role="alert">
+                            {{success}}
+                        </div>
+
+                    {% endif %}
+
+                    {% if error %}
+
+                        <div class="alert alert-danger" role="alert">
+                           {{error}}
+                        </div>
+
+                    {% endif %}
+
+                {% endblock %} <!-- END MESSAGES BLOCK -->
+
+                <!-- Modal -->
+                <div class="modal fade" id="tablaPersonasModal">
+                    <div class="modal-dialog modal-bigger">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="col-12 modal-title text-center">
+                                    Seleccionar Persona
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h1>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid text-center">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped" id="tablaPersonas">
+                                                    <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Cédula</th>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Primer Apellido</th>
+                                                        <th scope="col">Segundo Apellido</th>
+                                                        <th scope="col">Accion</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for person in persons %}
+                                                    <tr>
+                                                        <td>{{person.identification}}</td>
+                                                        <td>{{person.name}}</td>
+                                                        <td>{{person.first_lastname}}</td>
+                                                        <td>{{person.second_lastname}}</td>
+                                                        <td>
+                                                            <button onclick="javascript:fillPersonData({{person.identification}})" type="button" class="btn btn-secondary" id="seleccionador">
+                                                                <span>Seleccionar</span>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <input id="isSubmit" type="hidden" value="false"/>
+                                            <input id="cedulax" type="hidden"/>
+                                            <input id="nombrex" type="hidden"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
+
+                <style>
+                     .modal-bigger{
+                            max-width: 80% !important;
+                     }
+                </style>
+                <script>
+                    function fillPersonData(id){
+                        $("#inputCedula").val(id);
+                    }
+
+                </script>
+                {% endblock %} <!-- End content sobreescrito -->
             </div>
         </div>
-    </div>
 </div>
-
-<style>
-     .modal-bigger{
-            max-width: 80% !important;
-     }
-</style>
-<script>
-    function fillPersonData(id){
-        $("#inputCedula").val(id);
-    }
-
-</script>
-{% endblock %} <!-- End content sobreescrito -->

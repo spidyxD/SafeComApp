@@ -2,58 +2,69 @@
 
 
   {% block content %}
-<h1>Registro de Personas</h1>
+<div class="container-fluid  container-pa" >
+    <div class="row">
+        <div class="col-md-12 abs-center">
+            <div class="well well-sm form-bg">
+                <form action="{% url 'doborrarPersona' %}" method="DELETE">
+                    <fieldset>
+                        <legend class="text-center header">Eliminar Personas</legend>
+                            {% csrf_token %}
 
-<form action="{% url 'doborrarPersona' %}" method="DELETE">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputCedula" class="labels-style">Cedula</label>
+                                    <input class="form-control inputs-style" id="inputCedula" name="inputCedula" type="text" value="{{person.identification}}" required readonly>
+                                </div>
+                            </div>
 
-    {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputName" class="labels-style">Nombre</label>
+                                    <input class="form-control inputs-style" id="inputName" name="inputName" type="text" value="{{person.name}}" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputPrimerApe" class="labels-style">Primer Apellido</label>
+                                    <input class="form-control inputs-style" id="inputPrimerApe" name="inputPrimerApe" type="text" value="{{person.first_lastname}}" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputSegundoApe" class="labels-style">Segundo Apellido</label>
+                                    <input class="form-control inputs-style" id="inputSegundoApe" name="inputSegundoApe" type="text" value="{{person.second_lastname}}" required>
+                                </div>
+                            </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputCedula">Cedula</label>
-            <input class="form-control" id="inputCedula" name="inputCedula" type="text" value="{{person.identification}}" required readonly>
+                            <button class="btn btn-secondary" type="submit">Borrar</button>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputName">Nombre</label>
-            <input class="form-control" id="inputName" name="inputName" type="text" value="{{person.name}}" required>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputPrimerApe">Primer Apellido</label>
-            <input class="form-control" id="inputPrimerApe" name="inputPrimerApe" type="text" value="{{person.first_lastname}}" required>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputSegundoApe">Segundo Apellido</label>
-            <input class="form-control" id="inputSegundoApe" name="inputSegundoApe" type="text" value="{{person.second_lastname}}" required>
-        </div>
-    </div>
-
-    <button class="btn btn-secondary" type="submit">Borrar</button>
-
-</form>
 <br>
+     <div class="row text-center ">
+        <div class="col-md-12"   style="align-items: center;justify-content: center">
 
-{% block messages %}
-    {% if success %}
+            {% block messages %}
+                {% if success %}
 
-        <div class="alert alert-success" role="alert">
-            {{success}}
+                    <div class="alert alert-success" role="alert">
+                        {{success}}
+                    </div>
+
+                {% endif %}
+
+                {% if error %}
+
+                    <div class="alert alert-danger" role="alert">
+                       {{error}}
+                    </div>
+
+                {% endif %}
+
+            {% endblock %} <!-- END MESSAGES BLOCK -->
+
+
+
+            {% endblock %}
         </div>
-
-    {% endif %}
-
-    {% if error %}
-
-        <div class="alert alert-danger" role="alert">
-           {{error}}
-        </div>
-
-    {% endif %}
-
-{% endblock %} <!-- END MESSAGES BLOCK -->
-
-
-
-{% endblock %}
+     </div>
+</div>

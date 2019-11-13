@@ -34,114 +34,135 @@
 <body>
 
   <!-- Navbar content -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/app/">Inicio</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownPersona" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Personas
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownPersona">
-            <a class="dropdown-item" href="{% url 'registroPersona' %}">Registrar Personas</a>
-            <a class="dropdown-item" href="{% url 'listarPersona' %}">Consultar Personas</a>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/app/">Inicio</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPersona" role="button" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                    Personas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownPersona">
+                        <a class="dropdown-item" href="{% url 'registroPersona' %}">Registrar Personas</a>
+                        <a class="dropdown-item" href="{% url 'listarPersona' %}">Consultar Personas</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownVehicle" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                         Vehiculos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
+                        <a class="dropdown-item" href="{% url 'registrarVehiculo' %}">Registrar Vehiculo</a>
+                        <a class="dropdown-item" href="{% url 'listarVehiculo' %}">Consultar Vehiculos</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="dropdownVisitas" role="button" data-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+                        Visitas
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownVisitas">
+                        <a class="dropdown-item" href="{% url 'registroVisita' %}">Registrar Visitas</a>
+                        <a class="dropdown-item" href="{% url 'listarVisita' %}">Consultar Visitas</a>
+                      </div>
+                </li>
+                <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="dropdownBloqueos" role="button" data-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+                        Lista Negra
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownVisitas">
+                        <a class="dropdown-item" href="{% url 'registroBloqueo' %}">Registrar bloqueo</a>
+                        <a class="dropdown-item" href="{% url 'listarBloqueados' %}">Consultar bloqueos</a>
+                      </div>
+                 </li>
+          </ul>
           </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownVehicle" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Vehiculos
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownVehicle">
-            <a class="dropdown-item" href="{% url 'registrarVehiculo' %}">Registrar Vehiculo</a>
-            <a class="dropdown-item" href="{% url 'listarVehiculo' %}">Consultar Vehiculos</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownVisitas" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Visitas
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownVisitas">
-            <a class="dropdown-item" href="{% url 'registroVisita' %}">Registrar Visitas</a>
-            <a class="dropdown-item" href="{% url 'listarVisita' %}">Consultar Visitas</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownBloqueos" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Lista Negra
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownVisitas">
-            <a class="dropdown-item" href="{% url 'registroBloqueo' %}">Registrar bloqueo</a>
-            <a class="dropdown-item" href="{% url 'listarBloqueados' %}">Consultar bloqueos</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
-<div class="container">
-     {% block content %}
-{% block messages %}
-    {% if success %}
+      </nav>
+    <div class="container">
+    {% block content %}
+            {% block messages %}
+                {% if success %}
+                    <div class="alert alert-success" role="alert">
+                        {{success}}
+                    </div>
+                {% endif %}
 
-        <div class="alert alert-success" role="alert">
-            {{success}}
-        </div>
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                       {{error}}
+                    </div>
+                {% endif %}
 
-    {% endif %}
-
-    {% if error %}
-
-        <div class="alert alert-danger" role="alert">
-           {{error}}
-        </div>
-
-    {% endif %}
-
-{% endblock %} <!-- END MESSAGES BLOCK -->
+            {% endblock %} <!-- END MESSAGES BLOCK -->
 
 
-  <!-- SOBRECARGAR EL CONTENIDO DE ESTA SECCION EN LAS DEMAS VISTAS -->
-    <h1>Dashboard Safe Community </h1>
-      <table class="table table-striped toDataTable">
-            <thead class="thead-dark">
-             <tr>
-                 <th scope="col">Nombre completo</th>
-                <th scope="col">Identificacion</th>
-                <th scope="col">Placa</th>
-                <th scope="col">Modelo Carro</th>
-                <th scope="col">Fecha de entrada</th>
-                 <th scope="col">Acciones</th>
+          <!-- SOBRECARGAR EL CONTENIDO DE ESTA SECCION EN LAS DEMAS VISTAS -->
+            <h1>Dashboard Safe Community </h1>
+              <table class="table table-striped toDataTable">
+                    <thead class="thead-dark">
+                     <tr>
+                         <th scope="col">Nombre completo</th>
+                        <th scope="col">Identificacion</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Modelo Carro</th>
+                        <th scope="col">Fecha de entrada</th>
+                         <th scope="col">Acciones</th>
 
-            </tr>
-            </thead>
-                <tbody>
-                {% for visit in visits %}
-                <tr>
-                    <td>{{visit.plate.owner.name}} &nbsp; {{visit.plate.owner.first_lastname}} &nbsp; {{visit.plate.owner.second_lastname}}</td>
-                    <td>{{visit.plate.owner.identification}}</td>
-                    <td>{{visit.plate.plate}}</td>
-                    <td>{{visit.plate.model}}</td>
-                    <td>{{visit.incoming_date}}</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary">
-                        <a class="btn" href="{% url 'doExitVisita' %}?visitId={{visit.visit_id}}">Dar salida</a>
-                        </button>
-                    </td>
-                 </tr>
-                {% endfor %}
-                </tbody>
-        </table>
-
-    {% endblock %}
-
-
-
-  </div> <!-- END Container -->
-
-
+                    </tr>
+                    </thead>
+                        <tbody>
+                        {% for visit in visits %}
+                        <tr>
+                            <td>{{visit.plate.owner.name}} &nbsp; {{visit.plate.owner.first_lastname}} &nbsp; {{visit.plate.owner.second_lastname}}</td>
+                            <td>{{visit.plate.owner.identification}}</td>
+                            <td>{{visit.plate.plate}}</td>
+                            <td>{{visit.plate.model}}</td>
+                            <td>{{visit.incoming_date}}</td>
+                            <td>
+                                <button type="button" class="btn btn-secondary">
+                                <a class="btn" href="{% url 'doExitVisita' %}?visitId={{visit.visit_id}}">Dar salida</a>
+                                </button>
+                            </td>
+                         </tr>
+                        {% endfor %}
+                        </tbody>
+                </table>
+        </div> <!-- END Container -->
+         {% endblock %}
+        <footer class="text-center footer-style">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 footer-col">
+                            <H5>Dirección</H5>
+                            <p>
+                                Costa Rica, Heredia<br />
+                            </p>
+                        </div>
+                        <div class="col-md-4 footer-col">
+                            <H5>Desarrolladores</H5>
+                            <ul >
+                                <li>
+                                    <p>Marco Vinicio Calderon Alpizar</p>
+                                </li>
+                                <li>
+                                    <p>Andres Gutierrez</p>
+                                </li>
+                                <li>
+                                     <p>Addiel Amador Villagran</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 footer-col">
+                            <H5>Trabajo FreeLancer</H5>
+                            <p>Tengo más de X años de experiencia en maquetación web y me apasiona lo que hago!</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 </body>
+
 
 </html>
